@@ -5,9 +5,11 @@ async function getMedia() {
     fetch('./data/photographers.json')
     .then(response => response.json())
     .then(data => {
-        console.log("hi")
         const photographers = data.photographers;
+        const media = data.media;
         displayDesc(photographers);
+        displayGallery(media);
+        
     })
     .catch(err => console.error(err));            
 }
@@ -26,6 +28,35 @@ async function displayDesc(photographers) {
     }
 }
 
+async function displayGallery(media) {
+    for(let i=0; i < media.length; i++){
+        if(media[i].photographerId == id) {
+            const gallery = document.querySelector(".gallery");
+            const mediaModel = mediaFactory(media[i]);
+            const galleryDOM = mediaModel.getUserImagesDOM();
+            gallery.appendChild(galleryDOM);
+        }
+    }
+}
 window.onload = () => {
     getMedia();
+}
+
+const dropBtn = document.querySelector(".dropbtn");
+dropBtn.addEventListener("click", dropdown);
+function dropdown() {
+    const dropdownContent = document.querySelector(".dropdown-content");
+    const chevronUp = document.querySelector(".fa-chevron-up");
+    const chevronDown = document.querySelector(".fa-chevron-down");
+    if(dropdownContent.style.display=="none"){
+        dropdownContent.style.display= "block";
+        dropBtn.style.borderRadius="5px 5px 0 0";
+        chevronDown.style.display="none";
+        chevronUp.style.display="inline-block";
+    } else {
+        dropdownContent.style.display="none";
+        dropBtn.style.borderRadius="5px";
+        chevronDown.style.display="inline-block";
+        chevronUp.style.display="none";
+    }    
 }

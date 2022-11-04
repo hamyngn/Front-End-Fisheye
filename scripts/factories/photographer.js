@@ -8,13 +8,14 @@ function photographerFactory(data) {
 
     function getUserCardDOM() {
         const article = document.createElement( 'article' );
-        const a = document.createElement('a')
+        article.setAttribute("aria-label", "Photographe article");
+        article.setAttribute("role", "contentinfo");
+        const a = document.createElement('a');
         a.setAttribute("href", "photographer.html");
-        a.addEventListener("click", setId)
+        a.addEventListener("click", setId);
         const img = document.createElement( 'img' );
-        img.setAttribute("src", picture)
-        img.setAttribute("alt", name)
-        img.setAttribute("aria-label", "Photographe profile picture")
+        img.setAttribute("src", picture);
+        img.setAttribute("alt", name);
         const h2 = document.createElement( 'h2' );
         h2.textContent = name;
         const h3 = document.createElement( 'h3' );
@@ -49,9 +50,9 @@ function photographerFactory(data) {
     function getProfileImg(){
         const div = document.createElement( 'div' );
         const img = document.createElement( 'img' );
-        img.setAttribute("src", picture)
-        img.setAttribute("alt", name)
-        img.setAttribute("aria-label", "Photographe profile picture")
+        img.setAttribute("src", picture);
+        img.setAttribute("alt", name);
+        img.setAttribute("aria-label", "Photographe profile picture");
         div.appendChild(img);
         return (div);
     }
