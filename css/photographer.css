@@ -126,20 +126,25 @@ form input {
   display: block;
   color: white;
   background-color: #901C1C;
-  padding: 23px 0 23px 20px;
+  padding: 23px 0 23px 0;
   width: 170px;
   font-size: 18px;
   border-radius: 5px;
   cursor: pointer;
-  text-decoration: none;
+  border: none;
 }
 
 .dropbtn i{
-  margin-left: 2.5em;
+  margin-left: 1em;
 }
 
 .fa-chevron-up {
   --fa-display: none;
+}
+
+.dropdown a {
+  text-decoration: none;
+  color: white;
 }
 
 .dropdown-content {
@@ -154,10 +159,8 @@ form input {
 .dropdown-content a {
   border: solid 1px;
   border-top-color: #FAFAFA;
-  color: white;
   padding: 23px 0 23px 20px;
-  width: 168px;
-  text-decoration: none;
+  width: 148px;
   display: block;
 }
 
@@ -200,7 +203,10 @@ form input {
 }
 .img-desc h1 {
   font-size: 24px;
+  width: 200px;
   overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .img-desc i {
   margin-left: 6px;
