@@ -9,7 +9,7 @@ async function getMedia() {
         const media = data.media;
         displayDesc(photographers);
         displayGallery(media);
-        
+        displayLightBox(media);   
     })
     .catch(err => console.error(err));            
 }
@@ -38,6 +38,38 @@ async function displayGallery(media) {
         }
     }
 }
+
+async function displayLightBox(media) {
+    const lightBoxContent = document.querySelector(".lightBox-content");
+    const prevButton = document.querySelector(".prev");
+    for(let i=0; i < media.length; i++){
+        if(media[i].photographerId == id) {
+            const mediaSlide = mediaFactory(media[i]);
+            const mediaSlidesDOM = mediaSlide.lightBoxDOM();
+            lightBoxContent.insertBefore(mediaSlidesDOM, prevButton);
+        }
+    }
+}
+function currentSlide(n) {
+    showSlides(slideIndex = n);
+}
+
+var slideIndex = 1;
+function plusSlides(n) {
+    showSlides(slideIndex += n);
+}
+
+function showSlides(n) {
+    var i;
+    var slides = document.getElementsByClassName("imgSlide");
+    if (n > slides.length) {slideIndex = 1}
+    if (n < 1) {slideIndex = slides.length}
+    for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+    }
+    slides[slideIndex-1].style.display = "flex";
+}
+
 window.onload = () => {
     getMedia();
 }
@@ -59,4 +91,8 @@ function dropdown() {
         chevronDown.style.display="inline-block";
         chevronUp.style.display="none";
     }    
+}
+
+function closeLightBox() {
+    document.getElementById("lightBox").style.display = "none";
 }

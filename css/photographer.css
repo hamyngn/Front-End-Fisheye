@@ -1,3 +1,7 @@
+:root{
+  --main-color: #901C1C;
+}
+
 #contact_modal {
     display: none;
 }
@@ -51,7 +55,7 @@
     width: 170px;
     height: 70px;
     border: none;
-    background-color: #901C1C;
+    background-color: var(--main-color);
     border-radius: 5px;
     cursor: pointer;
 }
@@ -125,7 +129,7 @@ form input {
 .dropbtn {
   display: block;
   color: white;
-  background-color: #901C1C;
+  background-color: var(--main-color);
   padding: 23px 0 23px 0;
   width: 170px;
   font-size: 18px;
@@ -150,7 +154,7 @@ form input {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #901C1C;
+  background-color: var(--main-color);
   font-size: 18px;
   border-radius: 0 0 5px 5px;
   z-index: 1;
@@ -169,7 +173,7 @@ form input {
   position: absolute;
   width: 10px;
   height: 140px;
-  background-color: #901C1C;
+  background-color: var(--main-color);
 }
 
 .dropdown-content:after {
@@ -179,7 +183,7 @@ form input {
   top: 0;
   width: 10px;
   height: 140px;
-  background-color: #901C1C;
+  background-color: var(--main-color);
 }
 
 .gallery {
@@ -199,7 +203,7 @@ form input {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: #901C1C;
+  color: var(--main-color);
 }
 .img-desc h1 {
   font-size: 24px;
@@ -211,3 +215,81 @@ form input {
 .img-desc i {
   margin-left: 6px;
 }
+/* The LightBox (background) */
+.lightBox {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: #E5E5E5;
+}
+
+/* LightBox Content */
+.lightBox-content {
+  position: relative;
+  margin: auto;
+  padding: 0;
+  width: 90%;
+}
+
+.imgSlide {
+  flex-direction: column;
+  align-items: center;
+}
+.imgSlide img, 
+.imgSlide video {
+  width: 1050px;
+  height: 900px;
+  object-fit: cover;
+  border-radius: 5px;
+  background-color: #C4C4C4;
+}
+
+.imgSlide h1 {
+  width: 1050px;
+  margin-left: 100px;
+}
+
+/* The Close Button */
+.close {
+  color: var(--main-color);
+  position: absolute;
+  top: 2%;
+  right: 10%;
+  font-size: 48px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #999;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.cursor {
+  cursor: pointer;
+}
+/* Next & previous buttons */
+.prev,
+.next {
+  position: absolute;
+  bottom: 50%;
+  color: var(--main-color);
+  font-size: 48px;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: pointer;
+}
+.prev {
+left: 10%;
+}
+.next {
+right: 10%;
+}
+

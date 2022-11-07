@@ -1,8 +1,7 @@
 function mediaFactory(data) {
     const { id, photographerId, title, image, video, likes, date, price } = data;
-
-    function getUserImagesDOM() {
-        const article = document.createElement( 'article' );
+    var i = 0;
+    function getUserImages(element) {
         if (data.hasOwnProperty("video")) {
             const clip = `assets/media/${photographerId}/${video}`;
             const videoClip = document.createElement('video');
@@ -11,15 +10,30 @@ function mediaFactory(data) {
             source.setAttribute("src", clip);
             source.setAttribute("type", "video/mp4");
             videoClip.appendChild(source);
-            article.appendChild(videoClip);
+            i++;
+            videoClip.addEventListener("click",() => {
+                openLightBox();
+                currentSlide(i);
+            } );
+            element.appendChild(videoClip);
         }
         if (data.hasOwnProperty("image")) {     
             const picture = `assets/media/${photographerId}/${image}`;
             const img = document.createElement( 'img' );
             img.setAttribute("src", picture)
             img.setAttribute("alt", title)
-            article.appendChild(img);
+            img.addEventListener("click",() => {
+                openLightBox();
+                currentSlide(i);
+            } );
+            element.appendChild(img);
         }
+        return (element);
+    }
+
+    function getUserImagesDOM() {
+        const article = document.createElement( 'article' );
+        getUserImages(article );
         const div = document.createElement('div')
         div.setAttribute("class", "img-desc")
         const h1 = document.createElement('h1')
@@ -30,7 +44,27 @@ function mediaFactory(data) {
         div.appendChild(like);
         article.appendChild(div);
         return (article);
-        
     }
-    return { id, photographerId, title, image, video, likes, date, price, getUserImagesDOM };
+
+    function lightBoxDOM(){
+        const div = document.createElement( 'div' );
+        div.setAttribute("class", "imgSlide")
+        getUserImages(div);
+        const span = document.createElement('span');
+        span.textContent = "&times;"
+        span.addEventListener("click", closeLightBox);
+        const descDiv = document.createElement('div')
+        descDiv.setAttribute("class", "img-desc")
+        const h1 = document.createElement('h1')
+        h1.textContent = title;
+        descDiv.appendChild(h1);
+        div.appendChild(descDiv);
+        return (div);
+    }
+
+    function openLightBox() {
+        document.getElementById("lightBox").style.display = "block";
+    }
+    
+    return { id, photographerId, title, image, video, likes, date, price, getUserImagesDOM,lightBoxDOM, showSlides };
 }
