@@ -5,11 +5,8 @@ function mediaFactory(data) {
         if (data.hasOwnProperty("video")) {
             const clip = `assets/media/${photographerId}/${video}`;
             const videoClip = document.createElement('video');
+            videoClip.setAttribute("src", clip)
             videoClip.setAttribute("controls", "controls")
-            const source = document.createElement('source')
-            source.setAttribute("src", clip);
-            source.setAttribute("type", "video/mp4");
-            videoClip.appendChild(source);
             i++;
             videoClip.addEventListener("click",() => {
                 openLightBox();
@@ -60,10 +57,6 @@ function mediaFactory(data) {
         descDiv.appendChild(h1);
         div.appendChild(descDiv);
         return (div);
-    }
-
-    function openLightBox() {
-        document.getElementById("lightBox").style.display = "block";
     }
     
     return { id, photographerId, title, image, video, likes, date, price, getUserImagesDOM,lightBoxDOM, showSlides };

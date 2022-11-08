@@ -13,7 +13,10 @@ async function getMedia() {
     })
     .catch(err => console.error(err));            
 }
-
+window.onload = () => {
+    getMedia();
+}
+// diplay photographer informations
 async function displayDesc(photographers) {
     for(let i=0; i < photographers.length; i++){
         if(photographers[i].id == id) {
@@ -27,7 +30,7 @@ async function displayDesc(photographers) {
         }
     }
 }
-
+// display images and videos
 async function displayGallery(media) {
     for(let i=0; i < media.length; i++){
         if(media[i].photographerId == id) {
@@ -38,7 +41,7 @@ async function displayGallery(media) {
         }
     }
 }
-
+// lightbox modal
 async function displayLightBox(media) {
     const lightBoxContent = document.querySelector(".lightBox-content");
     const prevButton = document.querySelector(".prev");
@@ -50,15 +53,27 @@ async function displayLightBox(media) {
         }
     }
 }
+//openLightBox
+function openLightBox() {
+    document.getElementById("lightBox").style.display = "block";
+    document.getElementById("lightBox").setAttribute("tabindex","0");
+    document.getElementById("lightBox").focus();
+}
+//close lightbox
+function closeLightBox() {
+    document.getElementById("lightBox").style.display = "none";
+}
+
+//show current image
 function currentSlide(n) {
     showSlides(slideIndex = n);
 }
-
+//show next and previous image
 var slideIndex = 1;
 function plusSlides(n) {
     showSlides(slideIndex += n);
 }
-
+//show image by index
 function showSlides(n) {
     var i;
     var slides = document.getElementsByClassName("imgSlide");
@@ -67,13 +82,28 @@ function showSlides(n) {
     for (i = 0; i < slides.length; i++) {
         slides[i].style.display = "none";
     }
-    slides[slideIndex-1].style.display = "flex";
+    slides[slideIndex-1].style.display = "block";
 }
-
-window.onload = () => {
-    getMedia();
-}
-
+// show previous, next image by click
+const lightBox = document.querySelector(".lightBox");
+const prevButton = document.querySelector(".prev");
+prevButton.addEventListener("click", plusSlides(-1));
+const nextButton = document.querySelector(".next");
+nextButton.addEventListener("click", plusSlides(1))
+//show previous, next image by pressing arrow left and arrow right
+// close modal by pressing escape
+lightBox.addEventListener('keyup',(e) => {
+    if(e.keyCode==37) {
+        prevButton.click();
+    }
+    if(e.keyCode==39) {
+        nextButton.click();
+    }
+    if(e.keyCode==27){
+        closeLightBox();
+    }
+});
+//filter dropdown
 const dropBtn = document.querySelector(".dropbtn");
 dropBtn.addEventListener("click", dropdown);
 function dropdown() {
@@ -91,8 +121,4 @@ function dropdown() {
         chevronDown.style.display="inline-block";
         chevronUp.style.display="none";
     }    
-}
-
-function closeLightBox() {
-    document.getElementById("lightBox").style.display = "none";
 }

@@ -8,11 +8,20 @@
 
 .photograph-header {
     display: flex;
+    flex-wrap: wrap;
     background-color: #FAFAFA;
     height: 300px;
     margin: 0 100px;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
+}
+
+.photograph-header div:first-child {
+  margin-left: 50px;
+}
+
+.photograph-header div:last-child {
+  margin-right: 50px;
 }
 
 .photograph-main h2 {
@@ -220,7 +229,6 @@ form input {
   display: none;
   position: fixed;
   z-index: 1;
-  padding-top: 100px;
   left: 0;
   top: 0;
   width: 100%;
@@ -232,17 +240,26 @@ form input {
 /* LightBox Content */
 .lightBox-content {
   position: relative;
-  margin: auto;
-  padding: 0;
-  width: 90%;
+  width: 1440px;
+  height: 1024px;
+  background: #FFFFFF;
 }
 
 .imgSlide {
-  flex-direction: column;
-  align-items: center;
+  box-sizing: border-box;
+  position: absolute;
+  width: 1253px;
+  height: 984px;
+  left: 101px;
+  top: 40px;
+  border: 2px solid #95FFF9;
 }
+
 .imgSlide img, 
 .imgSlide video {
+  position: absolute;
+  left: 8%;
+  top: 1%;
   width: 1050px;
   height: 900px;
   object-fit: cover;
@@ -252,17 +269,20 @@ form input {
 
 .imgSlide h1 {
   width: 1050px;
-  margin-left: 100px;
+  position: absolute;
+  left: 8%;
+  bottom: 0%;
 }
 
 /* The Close Button */
 .close {
   color: var(--main-color);
   position: absolute;
-  top: 2%;
-  right: 10%;
+  top: 6%;
+  right: 8%;
   font-size: 48px;
   font-weight: bold;
+  z-index: 2;
 }
 
 .close:hover,
@@ -279,17 +299,39 @@ form input {
 .prev,
 .next {
   position: absolute;
-  bottom: 50%;
   color: var(--main-color);
   font-size: 48px;
-  user-select: none;
-  -webkit-user-select: none;
   cursor: pointer;
+  bottom: 50%;
 }
 .prev {
-left: 10%;
+  left: 10%;
 }
 .next {
-right: 10%;
+  right: 9%;
 }
 
+@media screen and (max-width: 1440px) {
+  .lightBox-content {
+    width: 100%;
+  }
+  .imgSlide {
+    left: 5%;
+    width: 90%;
+  }
+  .imgSlide img, 
+  .imgSlide video {
+    width: 85%;
+  }
+
+  .prev {
+    left: 7%;
+  }
+  .next {
+    right: 6.5%;
+  }
+
+  .close {
+    right: 6.5%;
+  }
+}
