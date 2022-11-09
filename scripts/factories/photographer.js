@@ -56,5 +56,11 @@ function photographerFactory(data) {
         div.appendChild(img);
         return (div);
     }
-    return { name, id, city, country, tagline, price, portrait, getUserCardDOM, getUserDOM, getProfileImg }
+
+    function getUserNameDOM() {
+        const h2 = document.createElement( 'h2' );
+        h2.textContent = name;
+        return (h2);
+    }
+    return { name, id, city, country, tagline, price, portrait, getUserCardDOM, getUserDOM, getProfileImg, getUserNameDOM }
 }

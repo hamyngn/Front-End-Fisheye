@@ -1,61 +1,55 @@
 :root{
   --main-color: #901C1C;
 }
-
-#contact_modal {
-    display: none;
+.photograph-main {
+  margin-left: 100px;
+  margin-right: 100px;
 }
-
 .photograph-header {
-    display: flex;
-    flex-wrap: wrap;
-    background-color: #FAFAFA;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 95px;
+    width: fit-content;
     height: 300px;
-    margin: 0 100px;
+    background-color: #FAFAFA;
     align-items: center;
     justify-content: space-between;
 }
-
+.photograph-header div{
+    text-align: center;
+    width: 300px;
+}
 .photograph-header div:first-child {
-  margin-left: 50px;
+    text-align: left;
+    margin-left: 50px;
 }
-
-.photograph-header div:last-child {
-  margin-right: 50px;
-}
-
 .photograph-main h2 {
     font-size: 64px;
     line-height: 83.33px;
     margin: 0;
 }
-
 .photograph-main h3 {
     font-size: 24px;
     line-height: 31.25px;
     margin-top: 16px;
 }
-
 .photograph-main h4 {
     font-size: 18px;
     line-height: 23.44px;
     margin-top: 19px;
 }
-
 .photograph-main h5 {
     font-size: 18px;
     font-weight: 700;
     color: #000000;
     line-height: 23.44px;
 }
-
 .photograph-header img {
     height: 200px;
     width: 200px;
     object-fit: cover;
     border-radius: 50%;
 }
-
 .contact_button {
     font-size: 20px;
     font-weight: bold;
@@ -68,8 +62,13 @@
     border-radius: 5px;
     cursor: pointer;
 }
-
+#contact_modal {
+  display: none;
+}
 .modal {
+    position: absolute;
+    top: 62px;
+    left: 24%;
     border-radius: 5px;
     background-color: #DB8876;
     width: 50%;
@@ -80,34 +79,48 @@
     padding: 35px;
     margin: auto;
 }
-
 .modal header {
     justify-content: space-between;
     width: 100%;
 }
-
 .modal header img {
     cursor: pointer;
 }
-
 .modal header h2 {
     font-size: 64px;
-    font-weight: normal;
-    text-align: center;
+    color: #000000;
+    font-style: normal;
+    font-weight: 400;
+    text-align: left;
+    line-height: 83px;
+}
+.modal h2:first-child {
+  position: absolute;
+  top: 3%;
+}
+.modal h2:last-child {
+  position: absolute;
+  top: 12%;
 }
 
+.close-modal {
+  position: absolute;
+  top: 5%;
+  right: 4%;
+}
 form {
     display: flex;
     width: 100%;
     flex-direction: column;
     align-items: flex-start;
 }
-
+.form {
+  margin-top: 15%;
+}
 form label {
     color: #312E2E;
     font-size: 36px;
 }
-
 form div {
     display: flex;
     flex-direction: column;
@@ -115,26 +128,27 @@ form div {
     align-items: self-start;
     margin-bottom: 26px;
 }
-
 form input {
     width: 100%;
     height: 68px;
     border: none;
     border-radius: 5px;
 }
-
+textarea {
+  width: 100%;
+  height: 170px;
+  border-radius: 5px;
+}
 .sort-by {
     display: flex;
-    margin: 20px 100px;
+    margin: 20px 0;
     align-items: center;
 }
-  
 .dropdown {
   position: relative;
   display: inline-block;
   margin-left: 25px;
 }
-
 .dropbtn {
   display: block;
   color: white;
@@ -146,20 +160,16 @@ form input {
   cursor: pointer;
   border: none;
 }
-
 .dropbtn i{
   margin-left: 1em;
 }
-
 .fa-chevron-up {
   --fa-display: none;
 }
-
 .dropdown a {
   text-decoration: none;
   color: white;
 }
-
 .dropdown-content {
   display: none;
   position: absolute;
@@ -168,7 +178,6 @@ form input {
   border-radius: 0 0 5px 5px;
   z-index: 1;
 }
-
 .dropdown-content a {
   border: solid 1px;
   border-top-color: #FAFAFA;
@@ -176,7 +185,6 @@ form input {
   width: 148px;
   display: block;
 }
-
 .dropdown-content:before {
   content : "";
   position: absolute;
@@ -184,7 +192,6 @@ form input {
   height: 140px;
   background-color: var(--main-color);
 }
-
 .dropdown-content:after {
   content : "";
   position: absolute;
@@ -194,20 +201,17 @@ form input {
   height: 140px;
   background-color: var(--main-color);
 }
-
 .gallery {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin: 38px 100px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 30px 95px;
+  margin: 38px 0;
 }
-
 .gallery img, video{
   width: 350px;
   height: 300px;
   object-fit: cover;
 }
-
 .img-desc {
   display: flex;
   align-items: center;
@@ -220,12 +224,13 @@ form input {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  margin: 10px 0;
 }
 .img-desc i {
   margin-left: 6px;
 }
 /* The LightBox (background) */
-.lightBox {
+.bgmodal {
   display: none;
   position: fixed;
   z-index: 1;
@@ -235,6 +240,10 @@ form input {
   height: 100%;
   overflow: auto;
   background-color: #E5E5E5;
+}
+
+.lightBox {
+  display: none;
 }
 
 /* LightBox Content */
@@ -309,6 +318,30 @@ form input {
 }
 .next {
   right: 9%;
+}
+
+#footer {
+  position: fixed;
+  bottom: 0;
+  right: 36px;
+  width: 376px;
+  height: 89px;
+  background: #DB8876;
+  border-radius: 5px;
+  text-align: center;
+}
+
+#footer i {
+  margin-right: 67px;
+  margin-left: 6px;
+}
+
+#footer div {
+  padding-top: 30px;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 30px;
+  color: #000000;
 }
 
 @media screen and (max-width: 1440px) {

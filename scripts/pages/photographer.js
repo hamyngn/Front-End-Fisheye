@@ -9,7 +9,8 @@ async function getMedia() {
         const media = data.media;
         displayDesc(photographers);
         displayGallery(media);
-        displayLightBox(media);   
+        displayLightBox(media); 
+        countLikes(media, photographers);  
     })
     .catch(err => console.error(err));            
 }
@@ -20,6 +21,7 @@ window.onload = () => {
 async function displayDesc(photographers) {
     for(let i=0; i < photographers.length; i++){
         if(photographers[i].id == id) {
+            // photographer page header
             const photographHeader = document.querySelector(".photograph-header");
             const photographerModel = photographerFactory(photographers[i]);
             const userDOM = photographerModel.getUserDOM();
@@ -27,6 +29,10 @@ async function displayDesc(photographers) {
             const button = document.querySelector("#contact_button")
             photographHeader.insertBefore(userDOM, button);
             photographHeader.appendChild(userImgDOM);
+            //contact modal header
+            const modalHeader = document.querySelector(".header-text");
+            const userNameDOM = photographerModel.getUserNameDOM();
+            modalHeader.appendChild(userNameDOM);
         }
     }
 }
@@ -43,6 +49,28 @@ async function displayGallery(media) {
         }
     }
 }
+//footer likes and price 
+async function countLikes(media, photographers){
+    let likes = 0;
+    let price;
+    for(let i=0; i < media.length; i++){
+        if(media[i].photographerId == id) {
+            likes+=media[i].likes;
+            
+        }
+    }
+    for(let i=0; i < photographers.length; i++){
+        if(photographers[i].id == id) {
+            price = photographers[i].price;
+        }
+    }
+    console.log(likes)
+    const footer = document.querySelector("#footer");
+    const likesBox = document.createElement ('div');
+    likesBox.innerHTML = likes + '<i class="fa-solid fa-heart"></i>' + price +"&euro; / jour";
+    footer.appendChild(likesBox);
+
+}
 // lightbox modal
 async function displayLightBox(media) {
     const lightBoxContent = document.querySelector(".lightBox-content");
@@ -57,12 +85,14 @@ async function displayLightBox(media) {
 }
 //openLightBox
 function openLightBox() {
+    document.querySelector(".bgmodal").style.display= "block";
     document.getElementById("lightBox").style.display = "block";
     document.getElementById("lightBox").setAttribute("tabindex","0");//to enable keyup
     document.getElementById("lightBox").focus(); //to enable keyup
 }
 //close lightbox
 function closeLightBox() {
+    document.querySelector(".bgmodal").style.display= "none";
     document.getElementById("lightBox").style.display = "none";
 }
 //show current image
@@ -74,7 +104,6 @@ function plusSlides(n) {
     var imgSlides = document.querySelectorAll(".imgSlide");
     for(var j = 0; j< imgSlides.length; j++){
         if (imgSlides[j].style.display == "block") {
-            console.log(j)
             var slideIndex = j+1;
         }
     }  

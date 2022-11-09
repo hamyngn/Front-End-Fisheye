@@ -36,26 +36,38 @@
       <section class="gallery">
       </section>
     </main>
+    <footer id="footer">
+    </footer>
+    <div class="bgmodal">
     <div id="contact_modal">
 			<div class="modal">
-				<header>
+				<header class="modal-header">
+          <div class="header-text">
           <h2>Contactez-moi</h2>
-          <img src="assets/icons/close.svg" onclick="closeModal()" />
+          </div>
+          <img class="close-modal" src="assets/icons/close.svg" onclick="closeModal()" />
         </header>
 				<form>
-					<div>
-						<label>Prénom</label>
-						<input />
+					<div class="form">
+						<label for="fname">Prénom</label>
+						<input type="text" id="fname" name="fname">
+            <label for="lname">Nom</label>
+            <input type="text" id="lname" name="lname">
+            <label for="email">Nom</label>
+            <input type="email" id="email" name="email">
+            <label for="message">Votre message</label>
+            <textarea id="message" name="message"></textarea>
 					</div>
           <button class="contact_button">Envoyer</button>
 				</form>
 			</div>
-		</div>
-    <div id="lightBox" class="lightBox" aria-label="image closeup view">
-      <div class="lightBox-content">
-        <span class="close cursor" onclick="closeLightBox()"><i class="fa-sharp fa-solid fa-xmark"></i></span>
-        <a class="prev" onclick="plusSlides(-1)" aria-label="Previous image"><i class="fa-sharp fa-solid fa-chevron-left"></i></a>
-        <a class="next" onclick="plusSlides(1)" aria-label="Next image"><i class="fa-sharp fa-solid fa-chevron-right"></i></a>
+    </div>
+      <div id="lightBox" class="lightBox" aria-label="image closeup view">
+        <div class="lightBox-content">
+          <span class="close cursor" onclick="closeLightBox()"><i class="fa-sharp fa-solid fa-xmark"></i></span>
+          <a class="prev" onclick="plusSlides(-1)" aria-label="Previous image"><i class="fa-sharp fa-solid fa-chevron-left"></i></a>
+          <a class="next" onclick="plusSlides(1)" aria-label="Next image"><i class="fa-sharp fa-solid fa-chevron-right"></i></a>
+        </div>
       </div>
     </div>
     <script src="https://kit.fontawesome.com/703ea3752e.js" crossorigin="anonymous"></script>
