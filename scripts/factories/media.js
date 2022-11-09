@@ -1,16 +1,15 @@
 function mediaFactory(data) {
     const { id, photographerId, title, image, video, likes, date, price } = data;
-    var i = 0;
-    function getUserImages(element) {
+    
+    function getUserImages(element,index) {
         if (data.hasOwnProperty("video")) {
             const clip = `assets/media/${photographerId}/${video}`;
             const videoClip = document.createElement('video');
             videoClip.setAttribute("src", clip)
             videoClip.setAttribute("controls", "controls")
-            i++;
             videoClip.addEventListener("click",() => {
                 openLightBox();
-                currentSlide(i);
+                currentSlide(index);
             } );
             element.appendChild(videoClip);
         }
@@ -21,16 +20,16 @@ function mediaFactory(data) {
             img.setAttribute("alt", title)
             img.addEventListener("click",() => {
                 openLightBox();
-                currentSlide(i);
+                currentSlide(index);
             } );
             element.appendChild(img);
         }
         return (element);
     }
 
-    function getUserImagesDOM() {
+    function getUserImagesDOM(index) {
         const article = document.createElement( 'article' );
-        getUserImages(article );
+        getUserImages(article,index );
         const div = document.createElement('div')
         div.setAttribute("class", "img-desc")
         const h1 = document.createElement('h1')

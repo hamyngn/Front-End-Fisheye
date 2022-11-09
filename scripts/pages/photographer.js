@@ -32,11 +32,13 @@ async function displayDesc(photographers) {
 }
 // display images and videos
 async function displayGallery(media) {
+    var index = 0;
     for(let i=0; i < media.length; i++){
         if(media[i].photographerId == id) {
+            index++;
             const gallery = document.querySelector(".gallery");
             const mediaModel = mediaFactory(media[i]);
-            const galleryDOM = mediaModel.getUserImagesDOM();
+            const galleryDOM = mediaModel.getUserImagesDOM(index);
             gallery.appendChild(galleryDOM);
         }
     }
@@ -56,42 +58,43 @@ async function displayLightBox(media) {
 //openLightBox
 function openLightBox() {
     document.getElementById("lightBox").style.display = "block";
-    document.getElementById("lightBox").setAttribute("tabindex","0");
-    document.getElementById("lightBox").focus();
+    document.getElementById("lightBox").setAttribute("tabindex","0");//to enable keyup
+    document.getElementById("lightBox").focus(); //to enable keyup
 }
 //close lightbox
 function closeLightBox() {
     document.getElementById("lightBox").style.display = "none";
 }
-
 //show current image
 function currentSlide(n) {
-    showSlides(slideIndex = n);
+    showSlides(n);
 }
 //show next and previous image
-var slideIndex = 1;
 function plusSlides(n) {
+    var imgSlides = document.querySelectorAll(".imgSlide");
+    for(var j = 0; j< imgSlides.length; j++){
+        if (imgSlides[j].style.display == "block") {
+            console.log(j)
+            var slideIndex = j+1;
+        }
+    }  
     showSlides(slideIndex += n);
 }
 //show image by index
 function showSlides(n) {
     var i;
     var slides = document.getElementsByClassName("imgSlide");
-    if (n > slides.length) {slideIndex = 1}
-    if (n < 1) {slideIndex = slides.length}
+    if (n > slides.length) {n = 1}
+    if (n < 1) {n = slides.length}
     for (i = 0; i < slides.length; i++) {
         slides[i].style.display = "none";
     }
-    slides[slideIndex-1].style.display = "block";
+    slides[n-1].style.display = "block";
 }
-// show previous, next image by click
+// show previous, next image by pressing arrow left and arrow right
 const lightBox = document.querySelector(".lightBox");
 const prevButton = document.querySelector(".prev");
-prevButton.addEventListener("click", plusSlides(-1));
 const nextButton = document.querySelector(".next");
-nextButton.addEventListener("click", plusSlides(1))
-//show previous, next image by pressing arrow left and arrow right
-// close modal by pressing escape
 lightBox.addEventListener('keyup',(e) => {
     if(e.keyCode==37) {
         prevButton.click();
@@ -100,9 +103,11 @@ lightBox.addEventListener('keyup',(e) => {
         nextButton.click();
     }
     if(e.keyCode==27){
-        closeLightBox();
+        closeLightBox(); // close modal by pressing escape
     }
 });
+
+
 //filter dropdown
 const dropBtn = document.querySelector(".dropbtn");
 dropBtn.addEventListener("click", dropdown);
