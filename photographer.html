@@ -23,47 +23,49 @@
         </div>
         <div class="dropdown">
           <button class="dropbtn">
-          <a href="#">Popularité</a>
+          <a href="#" class="popularity">Popularité</a>
+          <span class="dropIcon">
           <i class="fa-sharp fa-solid fa-chevron-down"></i>
           <i class="fa-sharp fa-solid fa-chevron-up"></i>
+          </span>
           </button>
           <div class="dropdown-content">
-          <a href="#">Date</a>
-          <a href="#">Titre</a>
+          <a href="#" class="date-sort">Date</a>
+          <a href="#" class="name-sort">Titre</a>
           </div>
         </div>
       </section>
-      <section class="gallery">
+      <section id="gallery" class="gallery">
       </section>
     </main>
     <footer id="footer">
     </footer>
     <div class="bgmodal">
     <div id="contact_modal">
-			<div class="modal">
+			<div class="modal" aria-hidden="true" role="dialog" aria-describedby="modalTitle">
 				<header class="modal-header">
           <div class="header-text">
-          <h2>Contactez-moi</h2>
+          <h2 id="modalTitle">Contactez-moi</h2>
           </div>
           <img class="close-modal" src="assets/icons/close.svg" onclick="closeModal()" />
         </header>
-				<form>
+				<form name="contact" onSubmit="return false">
 					<div class="form">
 						<label for="fname">Prénom</label>
-						<input type="text" id="fname" name="fname">
+						<input type="text" id="fname" name="fname" required>
             <label for="lname">Nom</label>
-            <input type="text" id="lname" name="lname">
-            <label for="email">Nom</label>
-            <input type="email" id="email" name="email">
+            <input type="text" id="lname" name="lname" required>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
             <label for="message">Votre message</label>
             <textarea id="message" name="message"></textarea>
 					</div>
-          <button class="contact_button">Envoyer</button>
+          <button class="contact_button" type="submit">Envoyer</button>
 				</form>
 			</div>
     </div>
-      <div id="lightBox" class="lightBox" aria-label="image closeup view">
-        <div class="lightBox-content">
+      <div id="lightBox" class="lightBox">
+        <div class="lightBox-content" aria-hidden="true" role="dialog" aria-label="image closeup view">
           <span class="close cursor" onclick="closeLightBox()"><i class="fa-sharp fa-solid fa-xmark"></i></span>
           <a class="prev" onclick="plusSlides(-1)" aria-label="Previous image"><i class="fa-sharp fa-solid fa-chevron-left"></i></a>
           <a class="next" onclick="plusSlides(1)" aria-label="Next image"><i class="fa-sharp fa-solid fa-chevron-right"></i></a>

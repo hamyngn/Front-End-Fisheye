@@ -228,6 +228,7 @@ textarea {
 }
 .img-desc i {
   margin-left: 6px;
+  cursor: pointer;
 }
 /* The LightBox (background) */
 .bgmodal {

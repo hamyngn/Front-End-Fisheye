@@ -5,7 +5,7 @@ function photographerFactory(data) {
     function setId() {
         localStorage.setItem("id", id);
     }
-
+    // create photographer element in home page
     function getUserCardDOM() {
         const article = document.createElement( 'article' );
         article.setAttribute("aria-label", "Photographe article");
@@ -32,7 +32,7 @@ function photographerFactory(data) {
         article.appendChild(h5);
         return (article);
     }
-
+    //photographer description in photographer page
     function getUserDOM() {
         const div = document.createElement( 'div' );
         const h2 = document.createElement( 'h2' );
@@ -46,7 +46,7 @@ function photographerFactory(data) {
         div.appendChild(h4);
         return (div);
     }
-
+    //photographer profile image in photographer page
     function getProfileImg(){
         const div = document.createElement( 'div' );
         const img = document.createElement( 'img' );
@@ -56,7 +56,7 @@ function photographerFactory(data) {
         div.appendChild(img);
         return (div);
     }
-
+    //add name to contact modal
     function getUserNameDOM() {
         const h2 = document.createElement( 'h2' );
         h2.textContent = name;

@@ -10,7 +10,7 @@ async function getMedia() {
         displayDesc(photographers);
         displayGallery(media);
         displayLightBox(media); 
-        countLikes(media, photographers);  
+        countLikes(media, photographers);
     })
     .catch(err => console.error(err));            
 }
@@ -49,14 +49,21 @@ async function displayGallery(media) {
         }
     }
 }
+
+// increase number of likes
+function addLikes(index) {
+    const likes = document.querySelectorAll(".likes-count");
+    let num = parseInt(likes[index-1].textContent);
+    likes[index-1].textContent = num + 1;
+}
+
 //footer likes and price 
 async function countLikes(media, photographers){
     let likes = 0;
     let price;
     for(let i=0; i < media.length; i++){
         if(media[i].photographerId == id) {
-            likes+=media[i].likes;
-            
+            likes+=media[i].likes;  
         }
     }
     for(let i=0; i < photographers.length; i++){
@@ -64,7 +71,6 @@ async function countLikes(media, photographers){
             price = photographers[i].price;
         }
     }
-    console.log(likes)
     const footer = document.querySelector("#footer");
     const likesBox = document.createElement ('div');
     likesBox.innerHTML = likes + '<i class="fa-solid fa-heart"></i>' + price +"&euro; / jour";
@@ -139,7 +145,8 @@ lightBox.addEventListener('keyup',(e) => {
 
 //filter dropdown
 const dropBtn = document.querySelector(".dropbtn");
-dropBtn.addEventListener("click", dropdown);
+const dropIcon = document.querySelector(".dropIcon")
+dropIcon.addEventListener("click", dropdown);
 function dropdown() {
     const dropdownContent = document.querySelector(".dropdown-content");
     const chevronUp = document.querySelector(".fa-chevron-up");
@@ -155,4 +162,83 @@ function dropdown() {
         chevronDown.style.display="inline-block";
         chevronUp.style.display="none";
     }    
+}
+
+//form Submit
+const form = document.forms["contact"];
+form.addEventListener('submit',formSubmit)
+function formSubmit() {
+    console.log(form["fname"].value, form["lname"].value, form["email"].value)
+}
+
+//filter by Popularity
+const popularity = document.querySelector(".popularity");
+popularity.addEventListener("click", sortByLikes)
+function sortByLikes() {
+    var i, switching, shouldSwitch;
+    const images = document.getElementById("gallery");
+    const likes = images.getElementsByClassName("likes-count");
+    switching = true;
+    while(switching) {
+        switching = false;
+        for (i= 0; i < (likes.length-1); i++) {
+            shouldSwitch = false;
+            if(Number(likes[i].innerHTML) < Number(likes[i+1].innerHTML)) {
+                shouldSwitch = true;
+                break;
+            }  
+        }  
+        if(shouldSwitch){
+            images.insertBefore((likes[i+1]).closest('article'), likes[i].closest('article'));
+            switching = true;
+        }  
+    }
+}
+
+//filter by Name
+const nameSort = document.querySelector(".name-sort")
+nameSort.addEventListener("click", sortByName)
+function sortByName() {
+    var i, switching, shouldSwitch;
+    const images = document.getElementById("gallery");
+    const names = images.getElementsByTagName("h1");
+    switching = true;
+    while(switching) {
+        switching = false;
+        for (i= 0; i < (names.length-1); i++) {
+            shouldSwitch = false;
+            if(names[i].innerHTML.toLowerCase() > names[i+1].innerHTML.toLowerCase()) {
+                shouldSwitch = true;
+                break;
+            }  
+        }  
+        if(shouldSwitch){
+            images.insertBefore((names[i+1]).closest('article'), names[i].closest('article'));
+            switching = true;
+        }  
+    }
+}
+
+//filter by date
+const dateSort = document.querySelector(".date-sort")
+dateSort.addEventListener("click", sortByDate)
+function sortByDate() {
+    var i, switching, shouldSwitch;
+    const images = document.getElementById("gallery");
+    const dates = images.getElementsByTagName("h2");
+    switching = true;
+    while(switching) {
+        switching = false;
+        for (i= 0; i < (dates.length-1); i++) {
+            shouldSwitch = false;
+            if(dates[i].innerHTML.toLowerCase() > dates[i+1].innerHTML.toLowerCase()) {
+                shouldSwitch = true;
+                break;
+            }  
+        }  
+        if(shouldSwitch){
+            images.insertBefore((dates[i+1]).closest('article'), dates[i].closest('article'));
+            switching = true;
+        }  
+    }
 }
