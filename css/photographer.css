@@ -65,6 +65,7 @@
 #contact_modal {
   display: none;
 }
+/* contact modal */
 .modal {
     position: absolute;
     top: 62px;
@@ -83,8 +84,14 @@
     justify-content: space-between;
     width: 100%;
 }
+/* Icon close*/
 .modal header img {
     cursor: pointer;
+}
+.close-modal {
+  position: absolute;
+  top: 5%;
+  right: 4%;
 }
 .modal header h2 {
     font-size: 64px;
@@ -94,20 +101,17 @@
     text-align: left;
     line-height: 83px;
 }
+/* Contactez-moi */
 .modal h2:first-child {
   position: absolute;
   top: 3%;
 }
+/* Name */
 .modal h2:last-child {
   position: absolute;
   top: 12%;
 }
-
-.close-modal {
-  position: absolute;
-  top: 5%;
-  right: 4%;
-}
+/* Contact form */
 form {
     display: flex;
     width: 100%;
@@ -139,6 +143,7 @@ textarea {
   height: 170px;
   border-radius: 5px;
 }
+/* Filter */
 .sort-by {
     display: flex;
     margin: 20px 0;
@@ -201,6 +206,7 @@ textarea {
   height: 140px;
   background-color: var(--main-color);
 }
+/* Images section */
 .gallery {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -212,6 +218,7 @@ textarea {
   height: 300px;
   object-fit: cover;
 }
+/* image description */
 .img-desc {
   display: flex;
   align-items: center;
@@ -230,7 +237,7 @@ textarea {
   margin-left: 6px;
   cursor: pointer;
 }
-/* The LightBox (background) */
+/* LightBox (background) */
 .bgmodal {
   display: none;
   position: fixed;
@@ -284,7 +291,7 @@ textarea {
   bottom: 0%;
 }
 
-/* The Close Button */
+/* Close Button */
 .close {
   color: var(--main-color);
   position: absolute;
@@ -320,7 +327,7 @@ textarea {
 .next {
   right: 9%;
 }
-
+/* Footer */
 #footer {
   position: fixed;
   bottom: 0;
