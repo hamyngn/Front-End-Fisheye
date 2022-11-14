@@ -9,7 +9,7 @@
   </head>
   <body>
     <header>
-      <img src="assets/images/logo.png" class="logo" />
+      <a href="index.html"><img src="assets/images/logo.png" class="logo" alt="Fisheye Home Page"/></a>
     </header>
     <main id="main" class="photograph-main">
       <section class="photograph-header">
@@ -21,17 +21,17 @@
         <div>
         <h5>Trier par</h5>
         </div>
-        <div class="dropdown">
-          <button class="dropbtn">
-          <a href="#" class="popularity">Popularité</a>
-          <span class="dropIcon">
+        <div class="dropdown" role="listbox" aria-label="Order by" aria-activedescendant="listbox-1" aria-expanded="false">
+          <div class="dropbtn" role="option" id="listbox-1" aria-selected="true">
+          <span class="popularity" role="option">Popularité</span>
+          <span class="dropIcon" aria-label="pop up">
           <i class="fa-sharp fa-solid fa-chevron-down" aria-hidden="true"></i>
           <i class="fa-sharp fa-solid fa-chevron-up" aria-hidden="true"></i>
           </span>
-          </button>
+          </div>
           <div class="dropdown-content">
-          <a href="#" class="date-sort">Date</a>
-          <a href="#" class="name-sort">Titre</a>
+          <div class="date-sort" role="option">Date</div>
+          <div class="name-sort" role="option">Titre</div>
           </div>
         </div>
       </section>
@@ -66,9 +66,9 @@
     </div>
       <div id="lightBox" class="lightBox">
         <div class="lightBox-content" role="dialog" aria-label="image closeup view">
-          <span class="close cursor" onclick="closeLightBox()" aria-label="close"><i class="fa-sharp fa-solid fa-xmark" aria-hidden="true"></i></span>
-          <a class="prev" onclick="plusSlides(-1)" aria-label="Previous"><i class="fa-sharp fa-solid fa-chevron-left" aria-hidden="true"></i></a>
-          <a class="next" onclick="plusSlides(1)" aria-label="Next"><i class="fa-sharp fa-solid fa-chevron-right" aria-hidden="true"></i></a>
+          <span class="close cursor" onclick="closeLightBox()" aria-label="Close dialog"><i class="fa-sharp fa-solid fa-xmark" aria-hidden="true"></i></span>
+          <a class="prev" onclick="plusSlides(-1)" aria-label="Previous image"><i class="fa-sharp fa-solid fa-chevron-left" aria-hidden="true"></i></a>
+          <a class="next" onclick="plusSlides(1)" aria-label="Next image"><i class="fa-sharp fa-solid fa-chevron-right" aria-hidden="true"></i></a>
         </div>
       </div>
     </div>

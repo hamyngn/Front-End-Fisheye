@@ -13,23 +13,27 @@ function photographerFactory(data) {
     const a = document.createElement('a');
     a.setAttribute('href', 'photographer.html');
     a.addEventListener('click', setId);
+    a.setAttribute('aria-label', name);
     const img = document.createElement('img');
     img.setAttribute('src', picture);
-    img.setAttribute('alt', name);
+    img.setAttribute('alt','');
+    img.style.display = "block";
     const h2 = document.createElement('h2');
     h2.textContent = name;
+    a.appendChild(img);
+    a.appendChild(h2);
+    const p = document.createElement('p')
     const h3 = document.createElement('h3');
     h3.textContent = `${city}, ${country}`;
     const h4 = document.createElement('h4');
     h4.textContent = tagline;
     const h5 = document.createElement('h5');
     h5.textContent = `${price}\u20AC/jour`;
+    p.appendChild(h3);
+    p.appendChild(h4);
+    p.appendChild(h5);
     article.appendChild(a);
-    a.appendChild(img);
-    article.appendChild(h2);
-    article.appendChild(h3);
-    article.appendChild(h4);
-    article.appendChild(h5);
+    article.appendChild(p);
     return (article);
   }
   // photographer description in photographer page

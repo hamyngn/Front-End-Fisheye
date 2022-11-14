@@ -141,6 +141,7 @@ lightBox.addEventListener('keyup', (e) => {
   }
 });
 // filter dropdown
+const dropDown= document.querySelector('.dropdown')
 const dropBtn = document.querySelector('.dropbtn');
 const dropIcon = document.querySelector('.dropIcon');
 dropIcon.addEventListener('click', dropdown);
@@ -153,11 +154,13 @@ function dropdown() {
     dropBtn.style.borderRadius = '5px 5px 0 0';
     chevronDown.style.display = 'none';
     chevronUp.style.display = 'inline-block';
+    dropDown.setAttribute('aria-expanded','true');
   } else {
     dropdownContent.style.display = 'none';
     dropBtn.style.borderRadius = '5px';
     chevronDown.style.display = 'inline-block';
     chevronUp.style.display = 'none';
+    dropDown.setAttribute('aria-expanded','false');
   }
 }
 // form Submit

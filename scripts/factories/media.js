@@ -41,13 +41,12 @@ function mediaFactory(data) {
     h2.textContent = date;
     h2.style.display = 'none';
     const like = document.createElement('div');
-    like.setAttribute('aria-label', 'likes');
     const span = document.createElement('span');
     span.textContent = likes;
     span.setAttribute('class', 'likes-count');
     const icon = document.createElement('i');
     icon.setAttribute('class', 'fa-solid fa-heart like-icon');
-    icon.setAttribute('aria-hidden','true')
+    icon.setAttribute('aria-label','likes')
     // increase likes
     icon.addEventListener('click', () => {
       addLikes(index);
@@ -65,10 +64,6 @@ function mediaFactory(data) {
     const div = document.createElement('div');
     div.setAttribute('class', 'imgSlide');
     getUserImages(div);
-    const span = document.createElement('span');
-    span.textContent = '&times;';
-    span.setAttribute('aria-label','close')
-    span.addEventListener('click', () => { closeLightBox(); });
     const descDiv = document.createElement('div');
     descDiv.setAttribute('class', 'img-desc');
     const h1 = document.createElement('h1');

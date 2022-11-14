@@ -155,40 +155,40 @@ textarea {
   margin-left: 25px;
 }
 .dropbtn {
-  display: block;
-  color: white;
+  color: #FFFFFF;
   background-color: var(--main-color);
-  padding: 23px 0 23px 0;
+  padding: 23px 0 23px 20px;
   width: 170px;
+  font-weight: 700;
   font-size: 18px;
+  line-height: 23px;
   border-radius: 5px;
   cursor: pointer;
   border: none;
 }
 .dropbtn i{
-  margin-left: 1em;
+  margin-left: 2em;
 }
 .fa-chevron-up {
   --fa-display: none;
-}
-.dropdown a {
-  text-decoration: none;
-  color: white;
 }
 .dropdown-content {
   display: none;
   position: absolute;
   background-color: var(--main-color);
+  font-weight: 700;
   font-size: 18px;
+  line-height: 23px;
   border-radius: 0 0 5px 5px;
   z-index: 1;
 }
-.dropdown-content a {
+.dropdown-content div {
   border: solid 1px;
   border-top-color: #FAFAFA;
   padding: 23px 0 23px 20px;
-  width: 148px;
-  display: block;
+  width: 168px;
+  color:#FFFFFF;
+  cursor: pointer;
 }
 .dropdown-content:before {
   content : "";
