@@ -1,4 +1,5 @@
 @import url("photographer.css");
+
 body {
     font-family: "DM Sans", sans-serif;
     font-weight: 400;
@@ -11,6 +12,7 @@ body {
 header {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     height: 90px;
@@ -46,11 +48,15 @@ a {
     flex-direction: column;
 }
 
+.photographer_section p {
+    margin: 0;
+}
+
 h2 {
     color: #D3573C;
     font-size: 36px;
     line-height: 47px;
-    margin: 5px auto 0;
+    margin: 15px auto 0;
     font-weight: 400;
     text-align: center;
 }
@@ -90,3 +96,40 @@ h5 {
     margin-left: auto;
     margin-right: auto;
 }
+
+@media screen and (max-width: 1024px) {
+    .photographer_section {
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+    }
+}
+@media screen and (max-width: 750px) {
+    header {
+        margin-top: 2em;
+        justify-content: center;
+    }
+    .logo {
+        margin-right: 100px;
+    }
+    h1 {
+        margin-left: 100px;
+    }
+    .photographer_section {
+        grid-template-columns: 1fr;
+        gap: 50px;
+        margin-top: 70px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .logo {
+        margin-right: 20px;
+        margin-left: 20px;
+    }
+    h1 {
+        margin-right: 0;
+        margin-left: 0;
+    }
+}
+
+

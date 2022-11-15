@@ -2,26 +2,27 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link href="https://fonts.googleapis.com/css?family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet" type="text/css" />
     <title>Fisheye - photographe </title>
   </head>
   <body>
-    <header>
+    <header role="banner" id="photographer-header">
       <a href="index.html"><img src="assets/images/logo.png" class="logo" alt="Fisheye Home Page"/></a>
     </header>
-    <main id="main" class="photograph-main">
-      <section class="photograph-header">
+    <main id="main" class="photograph-main" aria-hidden="false" role="main">
+      <section class="photograph-header" role="region">
         <div id="contact_button">
         <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
         </div>
       </section>
-      <section class="sort-by">
+      <section class="sort-by" role="region">
         <div>
         <h5>Trier par</h5>
         </div>
-        <div class="dropdown" role="listbox" aria-label="Order by" aria-activedescendant="listbox-1" aria-expanded="false">
+        <div class="dropdown" role="listbox" aria-label="Order by" aria-activedescendant="listbox-1" aria-haspopup="true" aria-expanded="false">
           <div class="dropbtn" role="option" id="listbox-1" aria-selected="true">
           <span class="popularity" role="option">Popularité</span>
           <span class="dropIcon" aria-label="pop up">
@@ -35,21 +36,21 @@
           </div>
         </div>
       </section>
-      <section id="gallery" class="gallery" aria-label="images">
+      <section id="gallery" class="gallery" aria-label="images" role="region">
       </section>
     </main>
-    <footer id="footer">
-    </footer>
+    <div id="footer">
+    </div>
     <div class="bgmodal">
-    <div id="contact_modal">
-			<div class="modal" aria-hidden="true" role="dialog" aria-describedby="modalTitle">
+      <div id="contact_modal" aria-hidden="true" role="dialog" aria-describedby="modalTitle">
+			<div class="modal">
 				<header class="modal-header">
           <div class="header-text">
           <h2 id="modalTitle">Contactez-moi</h2>
           </div>
-          <img class="close-modal" src="assets/icons/close.svg" onclick="closeModal()" alt="Close" />
+          <img class="close-modal" src="assets/icons/close.svg" onclick="closeModal()" alt="Close" tabindex="0"/>
         </header>
-				<form name="contact" onSubmit="return false">
+				<form name="contact" onSubmit="return false" role="form">
 					<div class="form">
 						<label for="fname">Prénom</label>
 						<input type="text" id="fname" name="fname" required>
@@ -63,9 +64,9 @@
           <button class="contact_button" type="submit">Envoyer</button>
 				</form>
 			</div>
-    </div>
-      <div id="lightBox" class="lightBox">
-        <div class="lightBox-content" role="dialog" aria-label="image closeup view">
+      </div>
+      <div id="lightBox" class="lightBox" role="dialog" aria-label="image closeup view" aria-hidden="true">
+        <div class="lightBox-content">
           <span class="close cursor" onclick="closeLightBox()" aria-label="Close dialog"><i class="fa-sharp fa-solid fa-xmark" aria-hidden="true"></i></span>
           <a class="prev" onclick="plusSlides(-1)" aria-label="Previous image"><i class="fa-sharp fa-solid fa-chevron-left" aria-hidden="true"></i></a>
           <a class="next" onclick="plusSlides(1)" aria-label="Next image"><i class="fa-sharp fa-solid fa-chevron-right" aria-hidden="true"></i></a>

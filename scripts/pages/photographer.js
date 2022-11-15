@@ -89,16 +89,22 @@ async function displayLightBox(media) {
   }
 }
 // openLightBox
+const lightBox = document.querySelector('.lightBox');
+const main = document.querySelector('#main');
 function openLightBox() {
   document.querySelector('.bgmodal').style.display = 'block';
-  document.getElementById('lightBox').style.display = 'block';
-  document.getElementById('lightBox').setAttribute('tabindex', '0');// to enable keyup
-  document.getElementById('lightBox').focus(); // to enable keyup
+  lightBox.style.display = 'block';
+  lightBox.setAttribute('tabindex', '0');// to enable keyup
+  lightBox.focus(); // to enable keyup
+  lightBox.setAttribute('aria-hidden','false');
+  main.setAttribute('aria-hidden','true');
 }
 // close lightbox
 function closeLightBox() {
   document.querySelector('.bgmodal').style.display = 'none';
-  document.getElementById('lightBox').style.display = 'none';
+  lightBox.style.display = 'none';
+  lightBox.setAttribute('aria-hidden','true');
+  main.setAttribute('aria-hidden','false');
 }
 // show current image
 function currentSlide(n) {
@@ -126,15 +132,13 @@ function showSlides(n) {
   slides[n - 1].style.display = 'block';
 }
 // show previous, next image by pressing arrow left and arrow right
-const lightBox = document.querySelector('.lightBox');
-const prevButton = document.querySelector('.prev');
-const nextButton = document.querySelector('.next');
+
 lightBox.addEventListener('keyup', (e) => {
   if (e.keyCode == 37) {
-    prevButton.click();
+    plusSlides(-1);
   }
   if (e.keyCode == 39) {
-    nextButton.click();
+    plusSlides(1);
   }
   if (e.keyCode == 27) {
     closeLightBox(); // close modal by pressing escape
