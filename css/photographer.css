@@ -333,26 +333,24 @@ textarea {
 /* Footer */
 #footer {
   position: fixed;
+  display: flex;
+  align-items: center;
   bottom: 0;
   right: 36px;
   width: 376px;
   height: 89px;
   background: #DB8876;
   border-radius: 5px;
-  text-align: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 30px;
+  color: #000000;
 }
 
 #footer i {
   margin-right: 67px;
   margin-left: 6px;
-}
-
-#footer div {
-  padding-top: 30px;
-  font-size: 24px;
-  font-weight: bold;
-  line-height: 30px;
-  color: #000000;
 }
 
 @media screen and (max-width: 1440px) {

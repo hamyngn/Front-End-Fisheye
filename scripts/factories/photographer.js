@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 function photographerFactory(data) {
   const {
     name, id, city, country, tagline, price, portrait,
@@ -16,13 +17,13 @@ function photographerFactory(data) {
     a.setAttribute('aria-label', name);
     const img = document.createElement('img');
     img.setAttribute('src', picture);
-    img.setAttribute('alt','');
-    img.style.display = "block";
+    img.setAttribute('alt', '');
+    img.style.display = 'block';
     const h2 = document.createElement('h2');
     h2.textContent = name;
     a.appendChild(img);
     a.appendChild(h2);
-    const p = document.createElement('p')
+    const p = document.createElement('p');
     const h3 = document.createElement('h3');
     h3.textContent = `${city}, ${country}`;
     const h4 = document.createElement('h4');
@@ -66,6 +67,16 @@ function photographerFactory(data) {
     return (h2);
   }
   return {
-    name, id, city, country, tagline, price, portrait, getUserCardDOM, getUserDOM, getProfileImg, getUserNameDOM,
+    name,
+    id,
+    city,
+    country,
+    tagline,
+    price,
+    portrait,
+    getUserCardDOM,
+    getUserDOM,
+    getProfileImg,
+    getUserNameDOM,
   };
 }

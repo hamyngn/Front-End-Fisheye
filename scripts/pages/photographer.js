@@ -1,25 +1,34 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable no-use-before-define */
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 // Mettre le code JavaScript lié à la page photographer.html
 const id = localStorage.getItem('id');
+console.log(id);
 async function getMedia() {
   // Récupérer les données dans le json
-  fetch('./data/photographers.json')
-    .then((response) => response.json())
-    .then((data) => {
-      const { photographers } = data;
-      const { media } = data;
-      displayDesc(photographers);
-      displayGallery(media);
-      displayLightBox(media);
-      countLikes(media, photographers);
-    })
-    .catch((err) => console.error(err));
+  const response = await fetch('./data/photographers.json');
+  const data = await response.json();
+  return data;
+}
+async function init() {
+  try {
+    const { photographers } = await getMedia();
+    const { media } = await getMedia();
+    displayDesc(photographers);
+    displayGallery(media);
+    displayLightBox(media);
+    countLikes(media, photographers);
+  } catch (err) {
+    console.log(err);
+  }
 }
 window.onload = () => {
-  getMedia();
+  init();
 };
 // diplay photographer informations
 async function displayDesc(photographers) {
-  for (let i = 0; i < photographers.length; i++) {
+  for (let i = 0; i < photographers.length; i += 1) {
     if (photographers[i].id == id) {
       // photographer page header
       const photographHeader = document.querySelector('.photograph-header');
@@ -39,9 +48,9 @@ async function displayDesc(photographers) {
 // display images and videos
 async function displayGallery(media) {
   let index = 0;
-  for (let i = 0; i < media.length; i++) {
+  for (let i = 0; i < media.length; i += 1) {
     if (media[i].photographerId == id) {
-      index++;
+      index += 1;
       const gallery = document.querySelector('.gallery');
       const mediaModel = mediaFactory(media[i]);
       const galleryDOM = mediaModel.getUserImagesDOM(index);
@@ -49,38 +58,44 @@ async function displayGallery(media) {
     }
   }
 }
-
 // increase number of likes
+const footer = document.querySelector('#footer');
 function addLikes(index) {
   const likes = document.querySelectorAll('.likes-count');
-  const num = parseInt(likes[index - 1].textContent);
+  const totalLikes = document.querySelector('.total-likes');
+  const num = parseInt(likes[index - 1].textContent, 10);
   likes[index - 1].textContent = num + 1;
+  let total = parseInt(totalLikes.textContent, 10);
+  total += 1;
+  totalLikes.innerHTML = `${total}<i class="fa-solid fa-heart"></i>`;
 }
-
 // footer likes and price
 async function countLikes(media, photographers) {
   let likes = 0;
   let price;
-  for (let i = 0; i < media.length; i++) {
+  for (let i = 0; i < media.length; i += 1) {
     if (media[i].photographerId == id) {
       likes += media[i].likes;
     }
   }
-  for (let i = 0; i < photographers.length; i++) {
+  for (let i = 0; i < photographers.length; i += 1) {
     if (photographers[i].id == id) {
       price = photographers[i].price;
     }
   }
-  const footer = document.querySelector('#footer');
-  const likesBox = document.createElement('div');
-  likesBox.innerHTML = `${likes}<i class="fa-solid fa-heart"></i>${price}&euro; / jour`;
-  footer.appendChild(likesBox);
+  const totalLikes = document.createElement('span');
+  totalLikes.innerHTML = `${likes}<i class="fa-solid fa-heart"></i>`;
+  totalLikes.setAttribute('class', 'total-likes');
+  const priceElement = document.createElement('span');
+  priceElement.innerHTML = `${price}&euro; / jour`;
+  footer.appendChild(totalLikes);
+  footer.appendChild(priceElement);
 }
 // lightbox modal
 async function displayLightBox(media) {
   const lightBoxContent = document.querySelector('.lightBox-content');
   const prevButton = document.querySelector('.prev');
-  for (let i = 0; i < media.length; i++) {
+  for (let i = 0; i < media.length; i += 1) {
     if (media[i].photographerId == id) {
       const mediaSlide = mediaFactory(media[i]);
       const mediaSlidesDOM = mediaSlide.lightBoxDOM();
@@ -96,15 +111,15 @@ function openLightBox() {
   lightBox.style.display = 'block';
   lightBox.setAttribute('tabindex', '0');// to enable keyup
   lightBox.focus(); // to enable keyup
-  lightBox.setAttribute('aria-hidden','false');
-  main.setAttribute('aria-hidden','true');
+  lightBox.setAttribute('aria-hidden', 'false');
+  main.setAttribute('aria-hidden', 'true');
 }
 // close lightbox
 function closeLightBox() {
   document.querySelector('.bgmodal').style.display = 'none';
   lightBox.style.display = 'none';
-  lightBox.setAttribute('aria-hidden','true');
-  main.setAttribute('aria-hidden','false');
+  lightBox.setAttribute('aria-hidden', 'true');
+  main.setAttribute('aria-hidden', 'false');
 }
 // show current image
 function currentSlide(n) {
@@ -113,9 +128,10 @@ function currentSlide(n) {
 // show next and previous image
 function plusSlides(n) {
   const imgSlides = document.querySelectorAll('.imgSlide');
-  for (let j = 0; j < imgSlides.length; j++) {
-    if (imgSlides[j].style.display == 'block') {
-      var slideIndex = j + 1;
+  let slideIndex;
+  for (let j = 0; j < imgSlides.length; j += 1) {
+    if (imgSlides[j].style.display === 'block') {
+      slideIndex = j + 1;
     }
   }
   showSlides(slideIndex += n);
@@ -123,59 +139,58 @@ function plusSlides(n) {
 // show image by index
 function showSlides(n) {
   let i;
+  let index = n;
   const slides = document.getElementsByClassName('imgSlide');
-  if (n > slides.length) { n = 1; }
-  if (n < 1) { n = slides.length; }
-  for (i = 0; i < slides.length; i++) {
+  if (index > slides.length) { index = 1; }
+  if (index < 1) { index = slides.length; }
+  for (i = 0; i < slides.length; i += 1) {
     slides[i].style.display = 'none';
   }
-  slides[n - 1].style.display = 'block';
+  slides[index - 1].style.display = 'block';
 }
 // show previous, next image by pressing arrow left and arrow right
 
 lightBox.addEventListener('keyup', (e) => {
-  if (e.keyCode == 37) {
+  if (e.keyCode === 37) {
     plusSlides(-1);
   }
-  if (e.keyCode == 39) {
+  if (e.keyCode === 39) {
     plusSlides(1);
   }
-  if (e.keyCode == 27) {
+  if (e.keyCode === 27) {
     closeLightBox(); // close modal by pressing escape
   }
 });
 // filter dropdown
-const dropDown= document.querySelector('.dropdown')
+const dropDown = document.querySelector('.dropdown');
 const dropBtn = document.querySelector('.dropbtn');
-const dropIcon = document.querySelector('.dropIcon');
-dropIcon.addEventListener('click', dropdown);
 function dropdown() {
   const dropdownContent = document.querySelector('.dropdown-content');
   const chevronUp = document.querySelector('.fa-chevron-up');
   const chevronDown = document.querySelector('.fa-chevron-down');
-  if (dropdownContent.style.display == 'none') {
+  if (dropdownContent.style.display === 'none') {
     dropdownContent.style.display = 'block';
     dropBtn.style.borderRadius = '5px 5px 0 0';
     chevronDown.style.display = 'none';
     chevronUp.style.display = 'inline-block';
-    dropDown.setAttribute('aria-expanded','true');
+    dropDown.setAttribute('aria-expanded', 'true');
   } else {
     dropdownContent.style.display = 'none';
     dropBtn.style.borderRadius = '5px';
     chevronDown.style.display = 'inline-block';
     chevronUp.style.display = 'none';
-    dropDown.setAttribute('aria-expanded','false');
+    dropDown.setAttribute('aria-expanded', 'false');
   }
 }
+const dropIcon = document.querySelector('.dropIcon');
+dropIcon.addEventListener('click', dropdown);
 // form Submit
 const form = document.forms.contact;
-form.addEventListener('submit', formSubmit);
 function formSubmit() {
   console.log(form.fname.value, form.lname.value, form.email.value);
 }
+form.addEventListener('submit', formSubmit);
 // filter by Popularity
-const popularity = document.querySelector('.popularity');
-popularity.addEventListener('click', sortByLikes);
 const images = document.getElementById('gallery');
 function sortByLikes() {
   let i; let switching; let shouldSwitch;
@@ -183,7 +198,7 @@ function sortByLikes() {
   switching = true;
   while (switching) {
     switching = false;
-    for (i = 0; i < (likes.length - 1); i++) {
+    for (i = 0; i < (likes.length - 1); i + 1) {
       shouldSwitch = false;
       if (Number(likes[i].innerHTML) < Number(likes[i + 1].innerHTML)) {
         shouldSwitch = true;
@@ -196,6 +211,8 @@ function sortByLikes() {
     }
   }
 }
+const popularity = document.querySelector('.popularity');
+popularity.addEventListener('click', sortByLikes);
 // filter by Name
 const nameSort = document.querySelector('.name-sort');
 nameSort.addEventListener('click', sortByName);
@@ -205,7 +222,7 @@ function sortByName() {
   switching = true;
   while (switching) {
     switching = false;
-    for (i = 0; i < (names.length - 1); i++) {
+    for (i = 0; i < (names.length - 1); i += 1) {
       shouldSwitch = false;
       if (names[i].innerHTML.toLowerCase() > names[i + 1].innerHTML.toLowerCase()) {
         shouldSwitch = true;
@@ -222,12 +239,12 @@ function sortByName() {
 const dateSort = document.querySelector('.date-sort');
 dateSort.addEventListener('click', sortByDate);
 function sortByDate() {
-    let i; let switching; let shouldSwitch;
+  let i; let switching; let shouldSwitch;
   const dates = images.getElementsByTagName('h2');
   switching = true;
   while (switching) {
     switching = false;
-    for (i = 0; i < (dates.length - 1); i++) {
+    for (i = 0; i < (dates.length - 1); i += 1) {
       shouldSwitch = false;
       if (dates[i].innerHTML.toLowerCase() > dates[i + 1].innerHTML.toLowerCase()) {
         shouldSwitch = true;

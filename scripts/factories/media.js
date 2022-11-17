@@ -1,10 +1,12 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 function mediaFactory(data) {
   const {
     id, photographerId, title, image, video, likes, date, price,
   } = data;
   // create img and video element
   function getUserImages(element, index) {
-    if (data.hasOwnProperty('video')) {
+    if (Object.prototype.hasOwnProperty.call(data, 'video')) {
       const clip = `assets/media/${photographerId}/${video}`;
       const videoClip = document.createElement('video');
       videoClip.setAttribute('src', clip);
@@ -16,7 +18,7 @@ function mediaFactory(data) {
       });
       element.appendChild(videoClip);
     }
-    if (data.hasOwnProperty('image')) {
+    if (Object.prototype.hasOwnProperty.call(data, 'image')) {
       const picture = `assets/media/${photographerId}/${image}`;
       const img = document.createElement('img');
       img.setAttribute('src', picture);
@@ -46,7 +48,7 @@ function mediaFactory(data) {
     span.setAttribute('class', 'likes-count');
     const icon = document.createElement('i');
     icon.setAttribute('class', 'fa-solid fa-heart like-icon');
-    icon.setAttribute('aria-label','likes')
+    icon.setAttribute('aria-label', 'likes');
     // increase likes
     icon.addEventListener('click', () => {
       addLikes(index);
