@@ -15,7 +15,7 @@
     <main id="main" class="photograph-main" aria-hidden="false" role="main">
       <section class="photograph-header" role="region">
         <div id="contact_button">
-        <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+        <button class="contact_button" onclick="displayModal()" tabindex="1">Contactez-moi</button>
         </div>
       </section>
       <section class="sort-by" role="region">
@@ -24,15 +24,15 @@
         </div>
         <div class="dropdown" role="listbox" aria-label="Order by" aria-activedescendant="listbox-1" aria-haspopup="true" aria-expanded="false">
           <div class="dropbtn" role="option" id="listbox-1" aria-selected="true">
-          <span class="popularity" role="option">Popularité</span>
-          <span class="dropIcon" aria-label="pop up">
-          <i class="fa-sharp fa-solid fa-chevron-down" aria-hidden="true"></i>
-          <i class="fa-sharp fa-solid fa-chevron-up" aria-hidden="true"></i>
+          <span class="popularity" role="option" tabindex="4">Popularité</span>
+          <span class="dropIcon" aria-label="pop up filter">
+          <i class="fa-sharp fa-solid fa-chevron-down" aria-label="show" tabindex="2"></i>
+          <i class="fa-sharp fa-solid fa-chevron-up" aria-label="hide" tabindex="3"></i>
           </span>
           </div>
           <div class="dropdown-content">
-          <div class="date-sort" role="option">Date</div>
-          <div class="name-sort" role="option">Titre</div>
+          <div class="date-sort" role="option" tabindex="5">Date</div>
+          <div class="name-sort" role="option" tabindex="6">Titre</div>
           </div>
         </div>
       </section>
@@ -48,7 +48,7 @@
           <div class="header-text">
           <h2 id="modalTitle">Contactez-moi</h2>
           </div>
-          <img class="close-modal" src="assets/icons/close.svg" onclick="closeModal()" alt="Close" tabindex="0"/>
+          <img class="close-modal" src="assets/icons/close.svg" onclick="closeModal()" alt="Close" tabindex="-1"/>
         </header>
 				<form name="contact" onSubmit="return false" role="form">
 					<div class="form">

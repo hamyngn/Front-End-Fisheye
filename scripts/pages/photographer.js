@@ -2,7 +2,6 @@
 /* global photographerFactory, mediaFactory */
 // Mettre le code JavaScript lié à la page photographer.html
 const id = localStorage.getItem('id');
-console.log(id);
 async function getMedia() {
   // Récupérer les données dans le json
   const response = await fetch('./data/photographers.json');
@@ -94,26 +93,38 @@ window.onload = () => {
 // filter dropdown
 const dropDown = document.querySelector('.dropdown');
 const dropBtn = document.querySelector('.dropbtn');
+const dropdownContent = document.querySelector('.dropdown-content');
+const chevronUp = document.querySelector('.fa-chevron-up');
+const chevronDown = document.querySelector('.fa-chevron-down');
 function dropdown() {
-  const dropdownContent = document.querySelector('.dropdown-content');
-  const chevronUp = document.querySelector('.fa-chevron-up');
-  const chevronDown = document.querySelector('.fa-chevron-down');
-  if (dropdownContent.style.display === 'none') {
-    dropdownContent.style.display = 'block';
-    dropBtn.style.borderRadius = '5px 5px 0 0';
-    chevronDown.style.display = 'none';
-    chevronUp.style.display = 'inline-block';
-    dropDown.setAttribute('aria-expanded', 'true');
-  } else {
-    dropdownContent.style.display = 'none';
-    dropBtn.style.borderRadius = '5px';
-    chevronDown.style.display = 'inline-block';
-    chevronUp.style.display = 'none';
-    dropDown.setAttribute('aria-expanded', 'false');
-  }
+  dropdownContent.style.display = 'block';
+  dropBtn.style.borderRadius = '5px 5px 0 0';
+  chevronDown.style.display = 'none';
+  chevronUp.style.display = 'inline-block';
+  dropDown.setAttribute('aria-expanded', 'true');
+  chevronUp.focus();
 }
-const dropIcon = document.querySelector('.dropIcon');
-dropIcon.addEventListener('click', dropdown);
+// filter roll up
+function rollUp() {
+  dropdownContent.style.display = 'none';
+  dropBtn.style.borderRadius = '5px';
+  chevronDown.style.display = 'inline-block';
+  chevronUp.style.display = 'none';
+  dropDown.setAttribute('aria-expanded', 'false');
+  chevronDown.focus();
+}
+chevronDown.addEventListener('click', dropdown);
+chevronUp.addEventListener('click', rollUp);
+chevronDown.addEventListener('keyup', (e) => {
+  if (e.keyCode === 13) {
+    dropdown();
+  }
+});
+chevronUp.addEventListener('keyup', (e) => {
+  if (e.keyCode === 13) {
+    rollUp();
+  }
+});
 // form Submit
 const form = document.forms.contact;
 function formSubmit() {
@@ -187,3 +198,70 @@ function sortByDate() {
 }
 const dateSort = document.querySelector('.date-sort');
 dateSort.addEventListener('click', sortByDate);
+// openLightBox
+const lightBox = document.querySelector('.lightBox');
+const main = document.querySelector('#main');
+function openLightBox() {
+  document.querySelector('.bgmodal').style.display = 'block';
+  lightBox.style.display = 'block';
+  lightBox.setAttribute('tabindex', '0');// to enable keyup
+  lightBox.focus(); // to enable keyup
+  lightBox.setAttribute('aria-hidden', 'false');
+  main.setAttribute('aria-hidden', 'true');
+}
+// close lightbox
+function closeLightBox() {
+  document.querySelector('.bgmodal').style.display = 'none';
+  lightBox.style.display = 'none';
+  lightBox.setAttribute('aria-hidden', 'true');
+  main.setAttribute('aria-hidden', 'false');
+}
+// show image by index
+function showSlides(n) {
+  let i;
+  let index = n;
+  const slides = document.getElementsByClassName('imgSlide');
+  if (index > slides.length) { index = 1; }
+  if (index < 1) { index = slides.length; }
+  for (i = 0; i < slides.length; i += 1) {
+    slides[i].style.display = 'none';
+  }
+  slides[index - 1].style.display = 'block';
+}
+// show current image
+function currentSlide(n) {
+  showSlides(n);
+}
+// show next and previous image
+function plusSlides(n) {
+  const imgSlides = document.querySelectorAll('.imgSlide');
+  let slideIndex;
+  for (let j = 0; j < imgSlides.length; j += 1) {
+    if (imgSlides[j].style.display === 'block') {
+      slideIndex = j + 1;
+    }
+  }
+  showSlides(slideIndex += n);
+}
+// show previous, next image by pressing arrow left and arrow right
+lightBox.addEventListener('keyup', (e) => {
+  if (e.keyCode === 37) {
+    plusSlides(-1);
+  }
+  if (e.keyCode === 39) {
+    plusSlides(1);
+  }
+  if (e.keyCode === 27) {
+    closeLightBox(); // close modal by pressing escape
+  }
+});
+// increase number of likes
+function addLikes(index) {
+  const likesCount = document.querySelectorAll('.likes-count');
+  const totalLikes = document.querySelector('.total-likes');
+  const num = parseInt(likesCount[index - 1].textContent, 10);
+  likesCount[index - 1].textContent = num + 1;
+  let total = parseInt(totalLikes.textContent, 10);
+  total += 1;
+  totalLikes.innerHTML = `${total}<i class="fa-solid fa-heart"></i>`;
+}
