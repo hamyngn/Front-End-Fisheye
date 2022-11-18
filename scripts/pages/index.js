@@ -1,5 +1,4 @@
-/* eslint-disable no-use-before-define */
-/* eslint-disable no-undef */
+/* global photographerFactory */
 // display homepage photographers
 async function getPhotographers() {
   // Penser à remplacer par les données récupérées dans le json
