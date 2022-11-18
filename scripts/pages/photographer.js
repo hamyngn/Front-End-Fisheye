@@ -1,7 +1,5 @@
 /* eslint-disable eqeqeq */
-/* eslint-disable no-use-before-define */
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-undef */
+/* global photographerFactory, mediaFactory */
 // Mettre le code JavaScript lié à la page photographer.html
 const id = localStorage.getItem('id');
 console.log(id);
@@ -11,21 +9,6 @@ async function getMedia() {
   const data = await response.json();
   return data;
 }
-async function init() {
-  try {
-    const { photographers } = await getMedia();
-    const { media } = await getMedia();
-    displayDesc(photographers);
-    displayGallery(media);
-    displayLightBox(media);
-    countLikes(media, photographers);
-  } catch (err) {
-    console.log(err);
-  }
-}
-window.onload = () => {
-  init();
-};
 // diplay photographer informations
 async function displayDesc(photographers) {
   for (let i = 0; i < photographers.length; i += 1) {
@@ -58,18 +41,8 @@ async function displayGallery(media) {
     }
   }
 }
-// increase number of likes
-const footer = document.querySelector('#footer');
-function addLikes(index) {
-  const likes = document.querySelectorAll('.likes-count');
-  const totalLikes = document.querySelector('.total-likes');
-  const num = parseInt(likes[index - 1].textContent, 10);
-  likes[index - 1].textContent = num + 1;
-  let total = parseInt(totalLikes.textContent, 10);
-  total += 1;
-  totalLikes.innerHTML = `${total}<i class="fa-solid fa-heart"></i>`;
-}
 // footer likes and price
+const footer = document.querySelector('#footer');
 async function countLikes(media, photographers) {
   let likes = 0;
   let price;
@@ -103,64 +76,21 @@ async function displayLightBox(media) {
     }
   }
 }
-// openLightBox
-const lightBox = document.querySelector('.lightBox');
-const main = document.querySelector('#main');
-function openLightBox() {
-  document.querySelector('.bgmodal').style.display = 'block';
-  lightBox.style.display = 'block';
-  lightBox.setAttribute('tabindex', '0');// to enable keyup
-  lightBox.focus(); // to enable keyup
-  lightBox.setAttribute('aria-hidden', 'false');
-  main.setAttribute('aria-hidden', 'true');
-}
-// close lightbox
-function closeLightBox() {
-  document.querySelector('.bgmodal').style.display = 'none';
-  lightBox.style.display = 'none';
-  lightBox.setAttribute('aria-hidden', 'true');
-  main.setAttribute('aria-hidden', 'false');
-}
-// show current image
-function currentSlide(n) {
-  showSlides(n);
-}
-// show next and previous image
-function plusSlides(n) {
-  const imgSlides = document.querySelectorAll('.imgSlide');
-  let slideIndex;
-  for (let j = 0; j < imgSlides.length; j += 1) {
-    if (imgSlides[j].style.display === 'block') {
-      slideIndex = j + 1;
-    }
+async function init() {
+  try {
+    const { photographers } = await getMedia();
+    const { media } = await getMedia();
+    displayDesc(photographers);
+    displayGallery(media);
+    displayLightBox(media);
+    countLikes(media, photographers);
+  } catch (err) {
+    console.log(err);
   }
-  showSlides(slideIndex += n);
 }
-// show image by index
-function showSlides(n) {
-  let i;
-  let index = n;
-  const slides = document.getElementsByClassName('imgSlide');
-  if (index > slides.length) { index = 1; }
-  if (index < 1) { index = slides.length; }
-  for (i = 0; i < slides.length; i += 1) {
-    slides[i].style.display = 'none';
-  }
-  slides[index - 1].style.display = 'block';
-}
-// show previous, next image by pressing arrow left and arrow right
-
-lightBox.addEventListener('keyup', (e) => {
-  if (e.keyCode === 37) {
-    plusSlides(-1);
-  }
-  if (e.keyCode === 39) {
-    plusSlides(1);
-  }
-  if (e.keyCode === 27) {
-    closeLightBox(); // close modal by pressing escape
-  }
-});
+window.onload = () => {
+  init();
+};
 // filter dropdown
 const dropDown = document.querySelector('.dropdown');
 const dropBtn = document.querySelector('.dropbtn');
@@ -214,8 +144,6 @@ function sortByLikes() {
 const popularity = document.querySelector('.popularity');
 popularity.addEventListener('click', sortByLikes);
 // filter by Name
-const nameSort = document.querySelector('.name-sort');
-nameSort.addEventListener('click', sortByName);
 function sortByName() {
   let i; let switching; let shouldSwitch;
   const names = images.getElementsByTagName('h1');
@@ -235,9 +163,9 @@ function sortByName() {
     }
   }
 }
+const nameSort = document.querySelector('.name-sort');
+nameSort.addEventListener('click', sortByName);
 // filter by date
-const dateSort = document.querySelector('.date-sort');
-dateSort.addEventListener('click', sortByDate);
 function sortByDate() {
   let i; let switching; let shouldSwitch;
   const dates = images.getElementsByTagName('h2');
@@ -257,3 +185,5 @@ function sortByDate() {
     }
   }
 }
+const dateSort = document.querySelector('.date-sort');
+dateSort.addEventListener('click', sortByDate);

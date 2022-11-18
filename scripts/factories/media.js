@@ -1,5 +1,70 @@
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
+// openLightBox
+const lightBox = document.querySelector('.lightBox');
+const main = document.querySelector('#main');
+function openLightBox() {
+  document.querySelector('.bgmodal').style.display = 'block';
+  lightBox.style.display = 'block';
+  lightBox.setAttribute('tabindex', '0');// to enable keyup
+  lightBox.focus(); // to enable keyup
+  lightBox.setAttribute('aria-hidden', 'false');
+  main.setAttribute('aria-hidden', 'true');
+}
+// close lightbox
+function closeLightBox() {
+  document.querySelector('.bgmodal').style.display = 'none';
+  lightBox.style.display = 'none';
+  lightBox.setAttribute('aria-hidden', 'true');
+  main.setAttribute('aria-hidden', 'false');
+}
+// show image by index
+function showSlides(n) {
+  let i;
+  let index = n;
+  const slides = document.getElementsByClassName('imgSlide');
+  if (index > slides.length) { index = 1; }
+  if (index < 1) { index = slides.length; }
+  for (i = 0; i < slides.length; i += 1) {
+    slides[i].style.display = 'none';
+  }
+  slides[index - 1].style.display = 'block';
+}
+// show current image
+function currentSlide(n) {
+  showSlides(n);
+}
+// show next and previous image
+function plusSlides(n) {
+  const imgSlides = document.querySelectorAll('.imgSlide');
+  let slideIndex;
+  for (let j = 0; j < imgSlides.length; j += 1) {
+    if (imgSlides[j].style.display === 'block') {
+      slideIndex = j + 1;
+    }
+  }
+  showSlides(slideIndex += n);
+}
+// show previous, next image by pressing arrow left and arrow right
+lightBox.addEventListener('keyup', (e) => {
+  if (e.keyCode === 37) {
+    plusSlides(-1);
+  }
+  if (e.keyCode === 39) {
+    plusSlides(1);
+  }
+  if (e.keyCode === 27) {
+    closeLightBox(); // close modal by pressing escape
+  }
+});
+// increase number of likes
+function addLikes(index) {
+  const likesCount = document.querySelectorAll('.likes-count');
+  const totalLikes = document.querySelector('.total-likes');
+  const num = parseInt(likesCount[index - 1].textContent, 10);
+  likesCount[index - 1].textContent = num + 1;
+  let total = parseInt(totalLikes.textContent, 10);
+  total += 1;
+  totalLikes.innerHTML = `${total}<i class="fa-solid fa-heart"></i>`;
+}
 function mediaFactory(data) {
   const {
     id, photographerId, title, image, video, likes, date, price,
@@ -31,6 +96,20 @@ function mediaFactory(data) {
     }
     return (element);
   }
+  // create lightbox
+  function lightBoxDOM() {
+    const div = document.createElement('div');
+    div.setAttribute('class', 'imgSlide');
+    getUserImages(div);
+    const descDiv = document.createElement('div');
+    descDiv.setAttribute('class', 'img-desc');
+    const h1 = document.createElement('h1');
+    h1.textContent = title;
+    descDiv.appendChild(h1);
+    div.appendChild(descDiv);
+    return (div);
+  }
+
   // create image and video description
   function getUserImagesDOM(index) {
     const article = document.createElement('article');
@@ -61,20 +140,6 @@ function mediaFactory(data) {
     article.appendChild(div);
     return (article);
   }
-  // create lightbox
-  function lightBoxDOM() {
-    const div = document.createElement('div');
-    div.setAttribute('class', 'imgSlide');
-    getUserImages(div);
-    const descDiv = document.createElement('div');
-    descDiv.setAttribute('class', 'img-desc');
-    const h1 = document.createElement('h1');
-    h1.textContent = title;
-    descDiv.appendChild(h1);
-    div.appendChild(descDiv);
-    return (div);
-  }
-
   return {
     id, photographerId, title, image, video, likes, date, price, getUserImagesDOM, lightBoxDOM,
   };
