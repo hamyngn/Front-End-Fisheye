@@ -1,8 +1,22 @@
-/* global openLightBox, currentSlide, addLikes */
+/* eslint-disable no-unused-vars */
+/* global showSlides, lightBox, main */
 function mediaFactory(data) {
   const {
     id, photographerId, title, image, video, likes, date, price,
   } = data;
+  // openLightBox
+  function openLightBox() {
+    document.querySelector('.bgmodal').style.display = 'block';
+    lightBox.style.display = 'block';
+    lightBox.setAttribute('tabindex', '0');// to enable keyup
+    lightBox.focus(); // to enable keyup
+    lightBox.setAttribute('aria-hidden', 'false');
+    main.setAttribute('aria-hidden', 'true');
+  }
+  // show current image
+  function currentSlide(n) {
+    showSlides(n);
+  }
   // create img and video element
   function getUserImages(element, index) {
     if (Object.prototype.hasOwnProperty.call(data, 'video')) {
@@ -43,7 +57,16 @@ function mediaFactory(data) {
     div.appendChild(descDiv);
     return (div);
   }
-
+  // increase number of likes
+  function addLikes(index) {
+    const likesCount = document.querySelectorAll('.likes-count');
+    const totalLikes = document.querySelector('.total-likes');
+    const num = parseInt(likesCount[index - 1].textContent, 10);
+    likesCount[index - 1].textContent = num + 1;
+    let total = parseInt(totalLikes.textContent, 10);
+    total += 1;
+    totalLikes.innerHTML = `${total}<i class="fa-solid fa-heart"></i>`;
+  }
   // create image and video description
   function getUserImagesDOM(index) {
     const article = document.createElement('article');
@@ -72,6 +95,12 @@ function mediaFactory(data) {
     div.appendChild(h2);
     div.appendChild(like);
     article.appendChild(div);
+    // open LightBox by Key
+    article.addEventListener('keyup', (e) => {
+      if (e.key === 'Enter') {
+        article.firstChild.click();
+      }
+    });
     return (article);
   }
   return {

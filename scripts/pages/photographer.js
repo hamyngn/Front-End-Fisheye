@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable eqeqeq */
 /* global photographerFactory, mediaFactory */
 // Mettre le code JavaScript lié à la page photographer.html
@@ -30,12 +31,15 @@ async function displayDesc(photographers) {
 // display images and videos
 async function displayGallery(media) {
   let index = 0;
+  let tabindex = 7;
   for (let i = 0; i < media.length; i += 1) {
     if (media[i].photographerId == id) {
       index += 1;
+      tabindex += 1;
       const gallery = document.querySelector('.gallery');
       const mediaModel = mediaFactory(media[i]);
       const galleryDOM = mediaModel.getUserImagesDOM(index);
+      galleryDOM.setAttribute('tabindex', tabindex);
       gallery.appendChild(galleryDOM);
     }
   }
@@ -139,7 +143,7 @@ function sortByLikes() {
   switching = true;
   while (switching) {
     switching = false;
-    for (i = 0; i < (likes.length - 1); i + 1) {
+    for (i = 0; i < (likes.length - 1); i += 1) {
       shouldSwitch = false;
       if (Number(likes[i].innerHTML) < Number(likes[i + 1].innerHTML)) {
         shouldSwitch = true;
@@ -154,6 +158,11 @@ function sortByLikes() {
 }
 const popularity = document.querySelector('.popularity');
 popularity.addEventListener('click', sortByLikes);
+popularity.addEventListener('keyup', (e) => {
+  if (e.keyCode === 13) {
+    sortByLikes();
+  }
+});
 // filter by Name
 function sortByName() {
   let i; let switching; let shouldSwitch;
@@ -176,6 +185,11 @@ function sortByName() {
 }
 const nameSort = document.querySelector('.name-sort');
 nameSort.addEventListener('click', sortByName);
+nameSort.addEventListener('keyup', (e) => {
+  if (e.keyCode === 13) {
+    sortByName();
+  }
+});
 // filter by date
 function sortByDate() {
   let i; let switching; let shouldSwitch;
@@ -198,17 +212,14 @@ function sortByDate() {
 }
 const dateSort = document.querySelector('.date-sort');
 dateSort.addEventListener('click', sortByDate);
-// openLightBox
+dateSort.addEventListener('keyup', (e) => {
+  if (e.keyCode === 13) {
+    sortByDate();
+  }
+});
+
 const lightBox = document.querySelector('.lightBox');
 const main = document.querySelector('#main');
-function openLightBox() {
-  document.querySelector('.bgmodal').style.display = 'block';
-  lightBox.style.display = 'block';
-  lightBox.setAttribute('tabindex', '0');// to enable keyup
-  lightBox.focus(); // to enable keyup
-  lightBox.setAttribute('aria-hidden', 'false');
-  main.setAttribute('aria-hidden', 'true');
-}
 // close lightbox
 function closeLightBox() {
   document.querySelector('.bgmodal').style.display = 'none';
@@ -228,10 +239,7 @@ function showSlides(n) {
   }
   slides[index - 1].style.display = 'block';
 }
-// show current image
-function currentSlide(n) {
-  showSlides(n);
-}
+
 // show next and previous image
 function plusSlides(n) {
   const imgSlides = document.querySelectorAll('.imgSlide');
@@ -255,13 +263,3 @@ lightBox.addEventListener('keyup', (e) => {
     closeLightBox(); // close modal by pressing escape
   }
 });
-// increase number of likes
-function addLikes(index) {
-  const likesCount = document.querySelectorAll('.likes-count');
-  const totalLikes = document.querySelector('.total-likes');
-  const num = parseInt(likesCount[index - 1].textContent, 10);
-  likesCount[index - 1].textContent = num + 1;
-  let total = parseInt(totalLikes.textContent, 10);
-  total += 1;
-  totalLikes.innerHTML = `${total}<i class="fa-solid fa-heart"></i>`;
-}

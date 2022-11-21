@@ -16,12 +16,8 @@ async function displayData(photographers) {
   });
 }
 async function init() {
-  try {
-    const { photographers } = await getPhotographers();
-    displayData(photographers);
-  } catch (err) {
-    console.log(err);
-  }
+  const { photographers } = await getPhotographers();
+  displayData(photographers);
 }
 
 window.onload = () => {

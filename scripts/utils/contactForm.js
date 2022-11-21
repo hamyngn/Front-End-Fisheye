@@ -10,6 +10,7 @@ function displayModal() {
   main.setAttribute('aria-hidden', 'true');
   closeButton.focus();
 }
+openModal.addEventListener('click', displayModal);
 // close contact modal
 function closeModal() {
   document.querySelector('.bgmodal').style.display = 'none';

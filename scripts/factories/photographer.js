@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 function photographerFactory(data) {
   const {
     name, id, city, country, tagline, price, portrait,
@@ -11,7 +12,7 @@ function photographerFactory(data) {
   function getUserCardDOM() {
     const article = document.createElement('article');
     const a = document.createElement('a');
-    a.setAttribute('href', 'photographer.html');
+    a.setAttribute('href', `photographer.html?name="${name}"`);
     a.addEventListener('click', setId);
     a.setAttribute('aria-label', name);
     const img = document.createElement('img');
