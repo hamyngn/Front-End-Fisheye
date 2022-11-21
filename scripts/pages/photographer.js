@@ -155,6 +155,7 @@ function sortByLikes() {
       switching = true;
     }
   }
+  images.getElementsByTagName('article')[0].focus();
 }
 const popularity = document.querySelector('.popularity');
 popularity.addEventListener('click', sortByLikes);
@@ -182,6 +183,7 @@ function sortByName() {
       switching = true;
     }
   }
+  images.getElementsByTagName('article')[0].focus();
 }
 const nameSort = document.querySelector('.name-sort');
 nameSort.addEventListener('click', sortByName);
@@ -209,6 +211,7 @@ function sortByDate() {
       switching = true;
     }
   }
+  images.getElementsByTagName('article')[0].focus();
 }
 const dateSort = document.querySelector('.date-sort');
 dateSort.addEventListener('click', sortByDate);
