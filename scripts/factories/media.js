@@ -4,6 +4,7 @@ function mediaFactory(data) {
   const {
     id, photographerId, title, image, video, likes, date, price,
   } = data;
+
   // openLightBox
   function openLightBox() {
     document.querySelector('.bgmodal').style.display = 'block';
@@ -13,10 +14,12 @@ function mediaFactory(data) {
     lightBox.setAttribute('aria-hidden', 'false');
     main.setAttribute('aria-hidden', 'true');
   }
+
   // show current image
   function currentSlide(n) {
     showSlides(n);
   }
+
   // create img and video element
   function getUserImages(element, index) {
     if (Object.prototype.hasOwnProperty.call(data, 'video')) {
@@ -91,6 +94,7 @@ function mediaFactory(data) {
     icon.setAttribute('class', 'fa-solid fa-heart like-icon');
     icon.setAttribute('aria-label', 'likes');
     icon.setAttribute('iconIndex', index);
+
     // increase likes
     icon.addEventListener('click', () => {
       addLikes(index);

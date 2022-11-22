@@ -9,6 +9,7 @@ async function getMedia() {
   const data = await response.json();
   return data;
 }
+
 // diplay photographer informations
 async function displayDesc(photographers) {
   for (let i = 0; i < photographers.length; i += 1) {
@@ -28,6 +29,7 @@ async function displayDesc(photographers) {
     }
   }
 }
+
 // display images and videos
 async function displayGallery(media) {
   let index = 0;
@@ -46,6 +48,7 @@ async function displayGallery(media) {
     }
   }
 }
+
 // footer likes and price
 const footer = document.querySelector('#footer');
 async function countLikes(media, photographers) {
@@ -69,6 +72,7 @@ async function countLikes(media, photographers) {
   footer.appendChild(totalLikes);
   footer.appendChild(priceElement);
 }
+
 // lightbox modal
 async function displayLightBox(media) {
   const lightBoxContent = document.querySelector('.lightBox-content');
@@ -81,6 +85,7 @@ async function displayLightBox(media) {
     }
   }
 }
+
 async function init() {
   try {
     const { photographers } = await getMedia();
@@ -93,9 +98,11 @@ async function init() {
     console.log(err);
   }
 }
+
 window.onload = () => {
   init();
 };
+
 // filter dropdown
 const dropDown = document.querySelector('.dropdown');
 const dropBtn = document.querySelector('.dropbtn');
@@ -110,6 +117,7 @@ function dropdown() {
   dropDown.setAttribute('aria-expanded', 'true');
   chevronUp.focus();
 }
+
 // filter roll up
 function rollUp() {
   dropdownContent.style.display = 'none';
@@ -131,6 +139,7 @@ chevronUp.addEventListener('keyup', (e) => {
     rollUp();
   }
 });
+
 // form Submit
 const form = document.forms.contact;
 function formSubmit() {
@@ -182,6 +191,7 @@ popularity.addEventListener('keyup', (e) => {
     sortByLikes();
   }
 });
+
 // filter by Name
 function sortByName() {
   let i; let switching; let shouldSwitch;
@@ -211,6 +221,7 @@ nameSort.addEventListener('keyup', (e) => {
     sortByName();
   }
 });
+
 // filter by date
 function sortByDate() {
   let i; let switching; let shouldSwitch;
@@ -241,9 +252,9 @@ dateSort.addEventListener('keyup', (e) => {
   }
 });
 
+// close lightbox
 const lightBox = document.querySelector('.lightBox');
 const main = document.querySelector('#main');
-// close lightbox
 function closeLightBox() {
   document.querySelector('.bgmodal').style.display = 'none';
   lightBox.style.display = 'none';
@@ -251,6 +262,7 @@ function closeLightBox() {
   main.setAttribute('aria-hidden', 'false');
   imgDesc[0].focus();
 }
+
 // show image by index
 function showSlides(n) {
   let i;
@@ -275,6 +287,7 @@ function plusSlides(n) {
   }
   showSlides(slideIndex += n);
 }
+
 // show previous, next image by pressing arrow left and arrow right
 lightBox.addEventListener('keyup', (e) => {
   if (e.keyCode === 37) {
