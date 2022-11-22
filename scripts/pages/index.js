@@ -6,6 +6,11 @@ async function getPhotographers() {
   const data = await response.json();
   return data;
 }
+
+/**
+ * display photographers
+ * @param {Array} photographers
+ */
 async function displayData(photographers) {
   const photographersSection = document.querySelector('.photographer_section');
 
@@ -15,6 +20,7 @@ async function displayData(photographers) {
     photographersSection.appendChild(userCardDOM);
   });
 }
+
 async function init() {
   const { photographers } = await getPhotographers();
   displayData(photographers);

@@ -44,6 +44,7 @@ function mediaFactory(data) {
     }
     return (element);
   }
+
   // create lightbox
   function lightBoxDOM() {
     const div = document.createElement('div');
@@ -57,16 +58,18 @@ function mediaFactory(data) {
     div.appendChild(descDiv);
     return (div);
   }
+
   // increase number of likes
   function addLikes(index) {
-    const likesCount = document.querySelectorAll('.likes-count');
+    const likesCount = document.querySelector(`[index="${index}"]`);
     const totalLikes = document.querySelector('.total-likes');
-    const num = parseInt(likesCount[index - 1].textContent, 10);
-    likesCount[index - 1].textContent = num + 1;
+    const num = parseInt(likesCount.textContent, 10);
+    likesCount.textContent = num + 1;
     let total = parseInt(totalLikes.textContent, 10);
     total += 1;
     totalLikes.innerHTML = `${total}<i class="fa-solid fa-heart"></i>`;
   }
+
   // create image and video description
   function getUserImagesDOM(index) {
     const article = document.createElement('article');
@@ -82,6 +85,7 @@ function mediaFactory(data) {
     const span = document.createElement('span');
     span.textContent = likes;
     span.setAttribute('class', 'likes-count');
+    span.setAttribute('index', index);
     const icon = document.createElement('i');
     icon.setAttribute('class', 'fa-solid fa-heart like-icon');
     icon.setAttribute('aria-label', 'likes');
