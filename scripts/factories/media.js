@@ -8,8 +8,8 @@ function mediaFactory(data) {
   function openLightBox() {
     document.querySelector('.bgmodal').style.display = 'block';
     lightBox.style.display = 'block';
-    lightBox.setAttribute('tabindex', '0');// to enable keyup
-    lightBox.focus(); // to enable keyup
+    lightBox.setAttribute('tabindex', '0');
+    lightBox.focus();
     lightBox.setAttribute('aria-hidden', 'false');
     main.setAttribute('aria-hidden', 'true');
   }
@@ -78,6 +78,7 @@ function mediaFactory(data) {
     div.setAttribute('class', 'img-desc');
     const h1 = document.createElement('h1');
     h1.textContent = title;
+    h1.setAttribute('imgIndex', index);
     const h2 = document.createElement('h2');
     h2.textContent = date;
     h2.style.display = 'none';
@@ -89,10 +90,17 @@ function mediaFactory(data) {
     const icon = document.createElement('i');
     icon.setAttribute('class', 'fa-solid fa-heart like-icon');
     icon.setAttribute('aria-label', 'likes');
+    icon.setAttribute('iconIndex', index);
     // increase likes
     icon.addEventListener('click', () => {
       addLikes(index);
     }, { once: true });
+    icon.addEventListener('keyup', (e) => {
+      if (e.key === 'Enter') {
+        const likesCount = document.querySelector(`[iconIndex="${index}"]`);
+        likesCount.click();
+      }
+    });
     like.appendChild(span);
     like.appendChild(icon);
     div.appendChild(h1);
@@ -100,9 +108,10 @@ function mediaFactory(data) {
     div.appendChild(like);
     article.appendChild(div);
     // open LightBox by Key
-    article.addEventListener('keyup', (e) => {
+    h1.addEventListener('keyup', (e) => {
       if (e.key === 'Enter') {
-        article.firstChild.click();
+        openLightBox();
+        currentSlide(index);
       }
     });
     return (article);

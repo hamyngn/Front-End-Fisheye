@@ -35,12 +35,14 @@ async function displayGallery(media) {
   for (let i = 0; i < media.length; i += 1) {
     if (media[i].photographerId == id) {
       index += 1;
-      tabindex += 1;
       const gallery = document.querySelector('.gallery');
       const mediaModel = mediaFactory(media[i]);
       const galleryDOM = mediaModel.getUserImagesDOM(index);
-      galleryDOM.setAttribute('tabindex', tabindex);
       gallery.appendChild(galleryDOM);
+      const descIndex = document.querySelector(`[imgIndex="${index}"]`);
+      descIndex.setAttribute('tabindex', tabindex += 1);
+      const like = document.querySelector(`[iconIndex="${index}"]`);
+      like.setAttribute('tabindex', tabindex += 1);
     }
   }
 }
@@ -135,11 +137,26 @@ function formSubmit() {
   console.log(form.fname.value, form.lname.value, form.email.value);
 }
 form.addEventListener('submit', formSubmit);
-// filter by Popularity
+
+// change tabindex after sorting
 const images = document.getElementById('gallery');
+const imgDesc = images.getElementsByTagName('h1');
+const likeIcon = images.getElementsByTagName('i');
+function changeTabIndex() {
+  let tabindex = 7;
+
+  for (let j = 0; j < imgDesc.length; j += 1) {
+    tabindex += 1;
+    imgDesc[j].tabIndex = tabindex;
+    likeIcon[j].tabIndex = tabindex + 1;
+  }
+}
+
+// filter by Popularity
 function sortByLikes() {
   let i; let switching; let shouldSwitch;
   const likes = images.getElementsByClassName('likes-count');
+
   switching = true;
   while (switching) {
     switching = false;
@@ -156,6 +173,7 @@ function sortByLikes() {
     }
   }
   images.getElementsByTagName('article')[0].focus();
+  changeTabIndex();
 }
 const popularity = document.querySelector('.popularity');
 popularity.addEventListener('click', sortByLikes);
@@ -184,6 +202,7 @@ function sortByName() {
     }
   }
   images.getElementsByTagName('article')[0].focus();
+  changeTabIndex();
 }
 const nameSort = document.querySelector('.name-sort');
 nameSort.addEventListener('click', sortByName);
@@ -212,6 +231,7 @@ function sortByDate() {
     }
   }
   images.getElementsByTagName('article')[0].focus();
+  changeTabIndex();
 }
 const dateSort = document.querySelector('.date-sort');
 dateSort.addEventListener('click', sortByDate);
@@ -229,6 +249,7 @@ function closeLightBox() {
   lightBox.style.display = 'none';
   lightBox.setAttribute('aria-hidden', 'true');
   main.setAttribute('aria-hidden', 'false');
+  imgDesc[0].focus();
 }
 // show image by index
 function showSlides(n) {
